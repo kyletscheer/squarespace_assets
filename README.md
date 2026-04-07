@@ -99,50 +99,9 @@ If folder selection doesn't work:
 
 ⚠️ **This utility is designed exclusively for desktop computers.** Mobile devices lack the processing power and storage capabilities needed for bulk media downloads. The application will display a warning on mobile devices and may fail to function properly.
 
-## 🛠️ Development
-
-### Tech Stack
-- **Frontend**: Vanilla HTML5, CSS3, ES6+ JavaScript
-- **Fonts**: DM Sans, DM Mono (Google Fonts)
-- **Icons**: Font Awesome 6.4.0
-- **No dependencies**: Pure client-side application
-
-### Architecture
-- **Single HTML file** with embedded CSS and JavaScript
-- **Progressive enhancement** with modern web APIs
-- **Responsive design** with CSS custom properties
-- **Accessibility features** and keyboard navigation
-
-### Key Components
-- **Asset URL extraction** via regex pattern matching
-- **Concurrent download management** with worker pools
-- **File system integration** using File System Access API
-- **Real-time UI updates** and progress tracking
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Squarespace** for their content management platform
-- **Google Fonts** for the beautiful typography
-- **Font Awesome** for the comprehensive icon set
-- **Chrome DevTools** for making web development easier
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/kyletscheer/squarespace_asset_extractor/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/kyletscheer/squarespace_asset_extractor/discussions)
-- **Author**: [Kyle Scheer](https://www.kylescheer.com)
 
 ---
 
