@@ -94,6 +94,42 @@
         }
         .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
+        /* Mobile Warning */
+        .mobile-warning {
+            display: none; /* Hidden by default, shown via JavaScript on mobile devices */
+            background: var(--danger-bg);
+            border: 1px solid var(--danger);
+            border-radius: 14px;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+        }
+
+        .mobile-warning-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-warning-content i {
+            font-size: 1.5rem;
+            color: var(--danger);
+            flex-shrink: 0;
+        }
+
+        .mobile-warning-text strong {
+            display: block;
+            color: var(--danger);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .mobile-warning-text p {
+            margin: 0;
+            color: var(--text);
+            font-size: .9rem;
+            line-height: 1.4;
+        }
+
         /* Requirements */
         .req-container {
             background: var(--warn-bg); border: 1px solid #fde68a;
@@ -138,6 +174,51 @@
         .step-card code {
             background: var(--bg2); padding: 1px 5px;
             border-radius: 4px; font-family: 'DM Mono', monospace; font-size: .8em;
+        }
+        .step-card img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 12px; }
+
+        /* Zoom icon on image hover */
+        .step-card {
+            position: relative;
+        }
+
+        .step-card .zoom-icon {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.0);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .step-card:hover .zoom-icon {
+            opacity: 1;
+            animation: zoomPulse 0.6s ease-in-out;
+        }
+
+        .step-card img {
+            transition: opacity 0.3s ease;
+        }
+
+        .step-card:hover img {
+            opacity: 0.5;
+        }
+
+        @keyframes zoomPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         /* Extractor panel */
@@ -371,6 +452,17 @@
         .console-dot.active { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse 1.4s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
+        #copyLogBtn {
+            background: var(--bg); border: 1px solid var(--border);
+            color: var(--muted); padding: 6px 12px;
+            border-radius: 6px; cursor: pointer;
+            font-size: .7rem; font-weight: 600;
+            display: flex; align-items: center; gap: 6px;
+            transition: all .2s;
+        }
+        #copyLogBtn:hover { border-color: var(--accent); color: var(--accent); }
+        #copyLogBtn:active { transform: scale(0.95); }
+
         #log {
             background: var(--console-bg); color: #a1a1aa;
             padding: 18px; border-radius: 10px;
@@ -402,6 +494,61 @@
             .stat-chip.eta { margin-left: 0; }
             .theme-toggle { position: static; margin-bottom: 16px; }
         }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+
+        .lightbox-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            max-width: 70%;
+            max-height: 70%;
+        }
+
+        .lightbox-content img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+
+        @media (max-width: 680px) {
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -415,6 +562,17 @@
         <p class="lead">Batch-download your Squarespace media library securely and efficiently.</p>
         <div class="badge"><i class="fab fa-chrome"></i> Optimized for Google Chrome</div>
     </header>
+
+    <!-- Mobile Device Warning -->
+    <div id="mobileWarning" class="mobile-warning">
+        <div class="mobile-warning-content">
+            <i class="fas fa-mobile-alt"></i>
+            <div class="mobile-warning-text">
+                <strong>Mobile Device Detected</strong>
+                <p>This utility is meant to be used on a computer only. Be warned this is not meant to be used on a mobile device.</p>
+            </div>
+        </div>
+    </div>
 
     <div class="req-container">
         <div class="req-header" onclick="toggleRequirements()">
@@ -439,14 +597,27 @@
             <div class="step-num">1</div>
             <h3>Load Library</h3>
             <p>Scroll to the very bottom of your Squarespace Asset Library until all items have finished loading.</p>
+            <div class="step-card-image">
+            <img src="images/step1.png" alt="Screenshot of Squarespace Asset Library with scrollbar at the bottom, showing all items loaded" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
+            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                </div>
         </div>
         <div class="step-card">
             <div class="step-num">2</div>
-            <h3>Copy Body</h3>
-            <p>Right-click → Inspect. Find the <code>&lt;body&gt;</code> element, right-click it, and select <strong>Copy → Copy element</strong>.</p>
+            <h3>Right-Click to Inspect</h3>
+            <p>Right-click on the asset page and select "Inspect" to view its HTML structure.</p>
+            <img src="images/step2.png" alt="Screenshot of Squarespace page with right-click context menu open and 'Inspect' option highlighted" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
+            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
         </div>
         <div class="step-card">
             <div class="step-num">3</div>
+            <h3>Copy Body</h3>
+            <p>Find the <code>&lt;body&gt;</code> element, right-click it, and select <strong>Copy → Copy element</strong>.</p>
+            <img src="images/step3.png" alt="Screenshot of Chrome DevTools Elements panel, showing the body element of the Squarespace page being right-clicked with the 'Copy element' option highlighted" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
+            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">4</div>
             <h3>Configure & Run</h3>
             <p>Paste below, choose a save folder, set your filters and speed, then click Extract.</p>
         </div>
@@ -557,6 +728,9 @@
 
         <div class="console-header">
             <span class="console-label"><span class="console-dot" id="consoleDot"></span> Console</span>
+            <button id="copyLogBtn" onclick="copyLog()" title="Copy console output">
+                <i class="fas fa-copy"></i> Copy
+            </button>
         </div>
         <div id="log">
             <div class="log-entry log-dim">Terminal ready. Awaiting input source…</div>
@@ -605,6 +779,7 @@ const folderBtn       = document.getElementById('folderBtn');
 const dupDownloadBtn  = document.getElementById('dupDownloadBtn');
 const dupSkipBtn      = document.getElementById('dupSkipBtn');
 const dupHint         = document.getElementById('dupHint');
+const copyLogBtn      = document.getElementById('copyLogBtn');
 
 /* ── State ────────────────────────────────────────────────────────────────── */
 let cancelRequested = false;
@@ -817,6 +992,39 @@ function clearLog() {
     logEl.innerHTML = '<div class="log-entry log-dim">Console cleared.</div>';
 }
 
+function copyLog() {
+    const logEntries = Array.from(logEl.querySelectorAll('.log-entry')).map(entry => entry.textContent);
+    const logText = logEntries.join('\n');
+
+    if (navigator.clipboard && window.isSecureContext) {
+        // Use modern clipboard API
+        navigator.clipboard.writeText(logText).then(() => {
+            log('Console output copied to clipboard!', 'log-success');
+        }).catch(err => {
+            log('Failed to copy to clipboard: ' + err, 'log-warn');
+        });
+    } else {
+        // Fallback for older browsers or non-HTTPS
+        const textArea = document.createElement('textarea');
+        textArea.value = logText;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            log('Console output copied to clipboard!', 'log-success');
+        } catch (err) {
+            log('Failed to copy to clipboard: ' + err, 'log-warn');
+        }
+
+        document.body.removeChild(textArea);
+    }
+}
+
 function log(msg, type = '') {
     const div = document.createElement('div');
     div.className = `log-entry ${type}`;
@@ -1025,5 +1233,81 @@ async function startExtraction() {
 /* ── Init ─────────────────────────────────────────────────────────────────── */
 loadPrefs();
 </script>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+    </div>
+</div>
+
+<script>
+/* ── Lightbox functionality ───────────────────────────────────────────────── */
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    // Add click event to all step-card images
+    document.querySelectorAll('.step-card img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', function() {
+            lightboxImg.src = this.src;
+            lightboxImg.alt = this.alt;
+            lightbox.style.display = 'flex';
+            lightbox.style.alignItems = 'center';
+            lightbox.style.justifyContent = 'center';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+    });
+
+    // Close lightbox when clicking the close button
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+            closeLightbox();
+        }
+    });
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+}
+
+/* ── Mobile device detection ───────────────────────────────────────────────── */
+function detectMobileDevice() {
+    const mobileWarning = document.getElementById('mobileWarning');
+
+    // Check if device is likely a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                    (window.innerWidth <= 768 && window.innerHeight <= 1024 && 'ontouchstart' in window);
+
+    // Additional check: if screen is very small and has touch capability
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const smallScreen = window.innerWidth <= 768;
+
+    if (isMobile || (hasTouch && smallScreen)) {
+        mobileWarning.style.display = 'block';
+    }
+}
+
+// Initialize lightbox and check for mobile devices after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initLightbox();
+    detectMobileDevice();
+});
+</script>
+
 </body>
 </html>
