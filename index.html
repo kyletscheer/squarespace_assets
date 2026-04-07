@@ -27,6 +27,7 @@
             --shadow:       0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
             --console-bg:   #111118;
             --console-border:#27272a;
+            --zoom-icon-bg:   rgba(0, 0, 0, 0.5);
         }
 
         [data-theme="dark"] {
@@ -47,6 +48,7 @@
             --shadow:       0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
             --console-bg:   #0a0a0d;
             --console-border:#1e1e24;
+            --zoom-icon-bg:   rgb(252, 252, 252, 0.5);
         }
 
         * { box-sizing: border-box; }
@@ -188,7 +190,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 2rem;
-            color: white;
+            color: var(--zoom-icon-bg);
             background: rgba(0, 0, 0, 0.0);
             border-radius: 50%;
             width: 3rem;
