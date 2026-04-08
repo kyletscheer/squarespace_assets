@@ -561,7 +561,7 @@
             <i class="fas fa-moon"></i> Dark mode
         </button>
         <h1>Squarespace Asset Utility</h1>
-        <p class="lead">Batch-download your Squarespace media library securely and efficiently.</p>
+        <p class="lead">Batch-download your Squarespace media library images securely and efficiently.</p>
         <div class="badge"><i class="fab fa-chrome"></i> Optimized for Google Chrome</div>
     </header>
 
@@ -593,7 +593,55 @@
             </ul>
         </div>
     </div>
-        <p>Watch a video tutorial on using the site <a href="https://youtu.be/CiKg0JN7iUc" target="_blank">here</a>.</p>
+
+    <div class="req-container" style="background: var(--danger-bg); border-color: var(--danger);">
+        <div class="req-header" onclick="toggleVideoNotice()" style="color: var(--danger);">
+            <div class="req-header-left">
+                <i class="fas fa-circle-info"></i>
+                <span>Images Only — Video Download Guide</span>
+            </div>
+            <i class="fas fa-chevron-up arrow-icon" id="videoArrow"></i>
+        </div>
+        <div class="req-content" id="videoContent" style="display: none;">
+            <p style="margin: 0 0 14px; color: var(--text); font-weight: 600;">
+                ⚠️ <strong>This utility processes IMAGES ONLY.</strong> Due to Squarespace's backend loading structure, video files cannot be downloaded through this tool.
+            </p>
+            <p style="margin: 0 0 14px; color: var(--text);">
+                If your Squarespace Asset Library contains videos, you can download them separately using the <strong>Video DownloadHelper</strong> browser extension:
+            </p>
+            <ul style="margin: 0 0 14px; padding-left: 16px;">
+                <li><strong>Install the extension:</strong> <a href="https://chromewebstore.google.com/detail/video-downloadhelper/lmjnegcaeklhafolokijcfjliaokphfk" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">Video DownloadHelper on Chrome Web Store</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">Video DownloadHelper on Firefox Add-ons</a></li>
+                <li><strong>Visit your Squarespace Asset Library</strong> in your web browser</li>
+                <li><strong>Click on each video</strong> to go to the video page</li>
+                <li><strong>Click the Video DownloadHelper icon</strong> in your browser toolbar when hovering over a video</li>
+                <li><strong>Select your preferred quality</strong> and download location</li>
+            </ul>
+            <p style="margin: 0; color: var(--text);">
+                <i class="fas fa-play-circle"></i> <strong>Video Tutorial:</strong> I've prepared a tutorial video showing exactly how to use Video DownloadHelper. Check back soon or watch our main tutorial (<a href="https://youtu.be/ioiUFjuxeF8" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">here</a>) for updates.
+            </p>
+        </div>
+        </div>
+        <div class="req-container" style="background: rgba(52, 152, 219, 0.1); border-color: #3498db;">
+    <div class="req-header" onclick="toggleWebPNotice()" style="color: #2980b9;">
+        <div class="req-header-left">
+            <i class="fas fa-image"></i>
+            <span>Why are my files saving as .webp?</span>
+        </div>
+        <i class="fas fa-chevron-up arrow-icon" id="webpArrow"></i>
+    </div>
+    <div class="req-content" id="webpContent" style="display: none;">
+        <p style="margin: 0 0 14px; color: var(--text);">
+            Squarespace uses <strong>Content Negotiation</strong> to serve the most efficient image format to your browser. Even if you originally uploaded a .jpg or .png, Squarespace often delivers a <strong>.webp</strong> file because it is smaller and higher quality.
+        </p>
+        <ul style="margin: 0 0 14px; padding-left: 16px; color: var(--text);">
+            <li><strong>Accuracy:</strong> This utility performs a "MIME-check" on every file. If the Squarespace server sends a WebP image, we save it with the <code>.webp</code> extension to ensure your computer can open it without errors.</li>
+            <li><strong>Compatibility:</strong> WebP is a modern standard supported by all major browsers, macOS, and Windows.</li>
+            <li><strong>Re-converting:</strong> If your workflow strictly requires older formats (like .png), we recommend using a batch converter on your computer after the download is complete to preserve the highest image quality.</li>
+        </ul>
+    </div>
+</div>
+
+    <p style="text-align: center; margin: 24px 0;">Watch a video tutorial on using this site <a href="https://youtu.be/CiKg0JN7iUc" target="_blank">here</a>.</p>
 
     <div class="instruction-grid">
         <div class="step-card">
@@ -627,7 +675,7 @@
     </div>
 
     <div class="extractor-container">
-        <div class="panel-label"><i class="fas fa-terminal"></i> Input Source</div>
+        <div style="color: black; font-size: .875rem;" class="panel-label"><i class="fas fa-terminal"></i> <strong>Input Source</strong></div>
         <textarea id="htmlInput" placeholder="Paste your <body...> element code here…"></textarea>
 
         <div class="config-grid">
@@ -637,8 +685,6 @@
                 <div class="panel-label"><i class="fas fa-filter"></i> File Type Filter</div>
                 <div class="filter-pill-group" id="categoryPills">
                     <span class="filter-pill active" data-cat="all"    onclick="selectCategory('all')"><i class="fas fa-layer-group"></i> All</span>
-                    <span class="filter-pill"        data-cat="images" onclick="selectCategory('images')"><i class="fas fa-image"></i> Images</span>
-                    <span class="filter-pill"        data-cat="videos" onclick="selectCategory('videos')"><i class="fas fa-film"></i> Videos</span>
                     <span class="filter-pill"        data-cat="custom" onclick="selectCategory('custom')"><i class="fas fa-sliders"></i> Custom…</span>
                 </div>
 
@@ -647,15 +693,7 @@
                     <label class="ext-chip active" data-type="image"><input type="checkbox" value="jpeg" checked> .jpeg</label>
                     <label class="ext-chip active" data-type="image"><input type="checkbox" value="png"  checked> .png</label>
                     <label class="ext-chip active" data-type="image"><input type="checkbox" value="webp" checked> .webp</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="gif"  checked> .gif</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="svg"  checked> .svg</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="avif" checked> .avif</label>
-                    <label class="ext-chip active" data-type="video"><input type="checkbox" value="mp4"  checked> .mp4</label>
-                    <label class="ext-chip active" data-type="video"><input type="checkbox" value="mov"  checked> .mov</label>
-                    <label class="ext-chip active" data-type="video"><input type="checkbox" value="webm" checked> .webm</label>
-                    <label class="ext-chip active" data-type="video"><input type="checkbox" value="avi"  checked> .avi</label>
-                    <label class="ext-chip active" data-type="other"><input type="checkbox" value="pdf"  checked> .pdf</label>
-                </div>
+                                 </div>
                 <p class="filter-note" id="filterNote">Downloading all detected asset types.</p>
 
                 <div class="dup-toggle-row">
@@ -695,7 +733,7 @@
                     </div>
                     <label class="subfolder-check disabled" id="subfolderLabel">
                         <input type="checkbox" id="subfolderCheck">
-                        Organise into /images and /videos subfolders
+                        Organise into /images subfolder
                     </label>
                     <p class="fsa-unavailable" id="fsaNotice">
                         <i class="fas fa-circle-info"></i> Folder picker requires Chrome 86+. Files will save to your Downloads folder instead.
@@ -769,6 +807,8 @@ const statEta         = document.getElementById('statEta');
 const consoleDot      = document.getElementById('consoleDot');
 const reqContent      = document.getElementById('reqContent');
 const reqArrow        = document.getElementById('reqArrow');
+const videoContent    = document.getElementById('videoContent');
+const videoArrow      = document.getElementById('videoArrow');
 const extGroup        = document.getElementById('extGroup');
 const filterNote      = document.getElementById('filterNote');
 const sliderVal       = document.getElementById('sliderVal');
@@ -791,9 +831,19 @@ let directoryHandle = null;
 let concurrency     = 1;
 let dupMode         = 'download'; // 'download' | 'skip'
 
-const IMAGE_EXTS = ['jpg','jpeg','png','webp','gif','svg','avif','tiff','bmp'];
+const IMAGE_EXTS = ['jpg','jpeg','png','webp','gif'];
 const VIDEO_EXTS = ['mp4','mov','webm','avi','mkv','m4v'];
-
+const MIME_MAP = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/gif': 'gif',
+    'image/svg+xml': 'svg',
+    'image/avif': 'avif',
+    'video/mp4': 'mp4',
+    'video/webm': 'webm',
+    'video/quicktime': 'mov'
+};
 const CONCURRENCY_HINTS = [
     '',
     'Sequential — 1 file at a time. Safest for large libraries.',
@@ -845,6 +895,23 @@ function toggleRequirements() {
     const visible = reqContent.style.display !== 'none';
     reqContent.style.display = visible ? 'none' : 'block';
     reqArrow.classList.toggle('arrow-down', visible);
+}
+
+/* ── Video notice accordion ───────────────────────────────────────────────── */
+function toggleVideoNotice() {
+    const visible = videoContent.style.display !== 'none';
+    videoContent.style.display = visible ? 'none' : 'block';
+    videoArrow.classList.toggle('arrow-down', visible);
+}
+
+/* ── WebP notice accordion ───────────────────────────────────────────────── */
+function toggleWebPNotice() {
+    const content = document.getElementById('webpContent');
+    const arrow = document.getElementById('webpArrow');
+    const visible = content.style.display !== 'none';
+    
+    content.style.display = visible ? 'none' : 'block';
+    arrow.classList.toggle('arrow-down', visible);
 }
 
 /* ── Duplicate filename mode ──────────────────────────────────────────────── */
@@ -1084,32 +1151,51 @@ async function downloadOne(url, index, seenNames) {
     try {
         const cleanUrl = url.replace(/&amp;/g, '&');
 
-        // Derive the raw filename before fetching so we can check/resolve it
-        // synchronously (no await) — critical for concurrency safety.
-        let rawName = decodeURIComponent(cleanUrl.split('/').pop().split('?')[0]);
-        if (!rawName || !rawName.includes('.')) rawName = `asset_${index + 1}.jpg`;
+        // 1. Initial Fetch
+        const res = await fetch(cleanUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        
+        const blob = await res.blob();
+        const contentType = res.headers.get('Content-Type');
 
+        // 2. Determine the Correct Extension based on MIME type
+        // If the server doesn't provide a type, we fallback to the URL extension
+        let detectedExt = MIME_MAP[contentType] || null;
+
+        // 3. Derive/Fix the filename
+        let rawName = decodeURIComponent(cleanUrl.split('/').pop().split('?')[0]);
+        if (!rawName || !rawName.includes('.')) {
+            rawName = `asset_${index + 1}.${detectedExt || 'jpg'}`;
+        } else if (detectedExt) {
+            // Swap the extension if it doesn't match the actual data
+            const currentExt = rawName.split('.').pop().toLowerCase();
+            if (currentExt !== detectedExt) {
+                const stem = rawName.substring(0, rawName.lastIndexOf('.'));
+                rawName = `${stem}.${detectedExt}`;
+            }
+        }
+
+        // 4. Handle Duplicates/Collisions
         if (dupMode === 'skip') {
             if (seenNames.has(rawName)) return { skipped: rawName };
             seenNames.add(rawName);
         }
 
-        // Resolve the final filename (rename if collision and mode is 'download')
         const filename = dupMode === 'download'
             ? resolveFilename(rawName, seenNames)
-            : rawName; // already claimed above in skip mode
+            : rawName;
 
-        const res = await fetch(cleanUrl);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const blob = await res.blob();
-
+        // 5. Save the file
         if (directoryHandle) {
             await saveViaFSA(blob, filename, directoryHandle);
         } else {
             saveViaAnchor(blob, filename);
         }
         return { saved: filename };
-    } catch { return null; }
+    } catch (e) { 
+        console.error(e);
+        return null; 
+    }
 }
 
 /* ── Cancel ───────────────────────────────────────────────────────────────── */

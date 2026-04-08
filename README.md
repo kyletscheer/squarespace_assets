@@ -1,6 +1,6 @@
 # Squarespace Asset Utility
 
-A secure and efficient web-based tool for batch-downloading your entire Squarespace media library. Extract all images, videos, and other assets from your Squarespace site's asset library with advanced filtering and performance controls.
+A secure and efficient web-based tool for batch-downloading all images from your Squarespace media library. Extract all images from your Squarespace site's asset library with advanced filtering and performance controls.
 
 ![Squarespace Asset Utility](https://img.shields.io/badge/Optimized%20for-Chrome-blue?style=flat&logo=google-chrome)
 ![Version](https://img.shields.io/badge/Version-1.0.0-green?style=flat)
@@ -9,20 +9,15 @@ A secure and efficient web-based tool for batch-downloading your entire Squaresp
 ## ✨ Features
 
 ### 🔄 Batch Download
-- **Bulk extraction** of all media assets from Squarespace libraries
+- **Bulk extraction** of all image assets from Squarespace libraries
 - **Concurrent downloads** with configurable speed control (1-5 workers)
 - **Progress tracking** with real-time statistics and ETA
 - **Automatic deduplication** of CDN resolution variants
 
 ### 🎯 Advanced Filtering
-- **File type filtering**: Images, videos, or custom extension selection
-- **Supported formats**:
-  - **Images**: JPG, JPEG, PNG, WebP, GIF, SVG, AVIF, TIFF, BMP
-  - **Videos**: MP4, MOV, WebM, AVI, MKV, M4V
-  - **Documents**: PDF and other file types
+- **File type filtering**: JPG, JPEG, PNG, WebP
 
 ### 📁 Smart Organization
-- **Subfolder organization** by file type (images/videos/other)
 - **Duplicate handling**: Rename duplicates or skip them entirely
 - **File System Access API** support for modern browsers
 - **Fallback download** for older browsers
@@ -64,8 +59,6 @@ A secure and efficient web-based tool for batch-downloading your entire Squaresp
 
 ### File Type Filters
 - **All**: Download all detected asset types
-- **Images**: Only image files (jpg, png, webp, gif, etc.)
-- **Videos**: Only video files (mp4, mov, webm, etc.)
 - **Custom**: Select specific file extensions
 
 ### Download Speed
