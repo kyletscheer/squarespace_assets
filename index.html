@@ -1,1402 +1,2150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Squarespace Asset Utility</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary:      #0a0a0a;
-            --accent:       #5b47f5;
-            --accent-h:     #7c6bf8;
-            --bg:           #ffffff;
-            --bg2:          #f5f5f7;
-            --border:       #e4e4e7;
-            --text:         #0a0a0a;
-            --muted:        #71717a;
-            --success:      #16a34a;
-            --success-bg:   #f0fdf4;
-            --warn:         #d97706;
-            --warn-bg:      #fffbeb;
-            --danger:       #dc2626;
-            --danger-bg:    #fef2f2;
-            --shadow:       0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
-            --console-bg:   #111118;
-            --console-border:#27272a;
-            --zoom-icon-bg:   rgba(0, 0, 0, 0.5);
-        }
+      :root {
+        --primary: #0a0a0a;
+        --accent: #5b47f5;
+        --accent-h: #7c6bf8;
+        --bg: #ffffff;
+        --bg2: #f5f5f7;
+        --border: #e4e4e7;
+        --text: #0a0a0a;
+        --muted: #71717a;
+        --success: #16a34a;
+        --success-bg: #f0fdf4;
+        --warn: #d97706;
+        --warn-bg: #fffbeb;
+        --danger: #dc2626;
+        --danger-bg: #fef2f2;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+        --console-bg: #111118;
+        --console-border: #27272a;
+        --zoom-icon-bg: rgba(0, 0, 0, 0.5);
+      }
 
-        [data-theme="dark"] {
-            --primary:      #f4f4f5;
-            --accent:       #7c6bf8;
-            --accent-h:     #9d8ff9;
-            --bg:           #18181b;
-            --bg2:          #0f0f11;
-            --border:       #3f3f46;
-            --text:         #f4f4f5;
-            --muted:        #71717a;
-            --success:      #4ade80;
-            --success-bg:   #052e16;
-            --warn:         #fbbf24;
-            --warn-bg:      #1c1400;
-            --danger:       #f87171;
-            --danger-bg:    #2d0a0a;
-            --shadow:       0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
-            --console-bg:   #0a0a0d;
-            --console-border:#1e1e24;
-            --zoom-icon-bg:   rgb(252, 252, 252, 0.5);
-        }
+      [data-theme="dark"] {
+        --primary: #f4f4f5;
+        --accent: #7c6bf8;
+        --accent-h: #9d8ff9;
+        --bg: #18181b;
+        --bg2: #0f0f11;
+        --border: #3f3f46;
+        --text: #f4f4f5;
+        --muted: #71717a;
+        --success: #4ade80;
+        --success-bg: #052e16;
+        --warn: #fbbf24;
+        --warn-bg: #1c1400;
+        --danger: #f87171;
+        --danger-bg: #2d0a0a;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+        --console-bg: #0a0a0d;
+        --console-border: #1e1e24;
+        --zoom-icon-bg: rgb(252, 252, 252, 0.5);
+      }
 
-        * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg2);
-            color: var(--text);
-            line-height: 1.6;
-            margin: 0;
-            transition: background .25s, color .25s;
-        }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg2);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
 
-        .wrapper { max-width: 1060px; margin: 0 auto; padding: 56px 24px; }
+      .wrapper {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 56px 24px;
+      }
 
-        /* Header */
-        header { text-align: center; margin-bottom: 44px; position: relative; }
+      /* Header */
+      header {
+        text-align: center;
+        margin-bottom: 44px;
+        position: relative;
+      }
 
-        h1 {
-            font-size: 2.6rem; font-weight: 900;
-            letter-spacing: -.04em; margin: 0 0 10px;
-            color: var(--text);
-        }
+      h1 {
+        font-size: 2.6rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin: 0 0 10px;
+        color: var(--text);
+      }
 
-        .lead { font-size: 1rem; color: var(--muted); max-width: 520px; margin: 0 auto; }
+      .lead {
+        font-size: 1rem;
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 auto;
+      }
 
-        .badge {
-            display: inline-flex; align-items: center; gap: 7px;
-            background: #ede9fe; color: #4f46e5;
-            padding: 6px 14px; border-radius: 20px;
-            font-size: .78rem; font-weight: 700; margin-top: 16px;
-        }
-        [data-theme="dark"] .badge { background: #2e1f6b; color: #a78bfa; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: #ede9fe;
+        color: #4f46e5;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-top: 16px;
+      }
+      [data-theme="dark"] .badge {
+        background: #2e1f6b;
+        color: #a78bfa;
+      }
 
-        /* Theme toggle */
-        .theme-toggle {
-            position: absolute; top: 0; right: 0;
-            background: var(--bg); border: 1.5px solid var(--border);
-            color: var(--muted); padding: 8px 14px;
-            border-radius: 10px; cursor: pointer;
-            font-size: .82rem; font-weight: 600;
-            font-family: 'DM Sans', sans-serif;
-            display: flex; align-items: center; gap: 7px;
-            transition: all .2s;
-        }
-        .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+      /* Theme toggle */
+      .theme-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--bg);
+        border: 1.5px solid var(--border);
+        color: var(--muted);
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 600;
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.2s;
+      }
+      .theme-toggle:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
 
-        /* Mobile Warning */
-        .mobile-warning {
-            display: none; /* Hidden by default, shown via JavaScript on mobile devices */
-            background: var(--danger-bg);
-            border: 1px solid var(--danger);
-            border-radius: 14px;
-            margin-bottom: 24px;
-            padding: 16px 20px;
-        }
+      /* Mobile Warning */
+      .mobile-warning {
+        display: none; /* Hidden by default, shown via JavaScript on mobile devices */
+        background: var(--danger-bg);
+        border: 1px solid var(--danger);
+        border-radius: 14px;
+        margin-bottom: 24px;
+        padding: 16px 20px;
+      }
 
-        .mobile-warning-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+      .mobile-warning-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-        .mobile-warning-content i {
-            font-size: 1.5rem;
-            color: var(--danger);
-            flex-shrink: 0;
-        }
+      .mobile-warning-content i {
+        font-size: 1.5rem;
+        color: var(--danger);
+        flex-shrink: 0;
+      }
 
-        .mobile-warning-text strong {
-            display: block;
-            color: var(--danger);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+      .mobile-warning-text strong {
+        display: block;
+        color: var(--danger);
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
 
-        .mobile-warning-text p {
-            margin: 0;
-            color: var(--text);
-            font-size: .9rem;
-            line-height: 1.4;
-        }
+      .mobile-warning-text p {
+        margin: 0;
+        color: var(--text);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
 
-        /* Requirements */
-        .req-container {
-            background: var(--warn-bg); border: 1px solid #fde68a;
-            border-radius: 14px; margin-bottom: 36px; overflow: hidden;
-        }
-        [data-theme="dark"] .req-container { border-color: #78350f; }
+      /* Requirements */
+      .req-container {
+        background: var(--warn-bg);
+        border: 1px solid #fde68a;
+        border-radius: 14px;
+        margin-bottom: 36px;
+        overflow: hidden;
+      }
+      [data-theme="dark"] .req-container {
+        border-color: #78350f;
+      }
 
-        .req-header {
-            padding: 16px 20px; cursor: pointer;
-            font-weight: 700; color: var(--warn);
-            display: flex; align-items: center;
-            justify-content: space-between;
-            user-select: none; font-size: .88rem;
-        }
-        .req-header-left { display: flex; align-items: center; gap: 10px; }
-        .arrow-icon { transition: transform .25s; }
-        .arrow-down { transform: rotate(180deg); }
-        .req-content { padding: 0 20px 18px 42px; }
-        .req-content ul { margin: 0; padding-left: 16px; font-size: .86rem; color: var(--warn); }
-        .req-content li { margin-bottom: 6px; }
+      .req-header {
+        padding: 16px 20px;
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--warn);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+        font-size: 0.88rem;
+      }
+      .req-header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .arrow-icon {
+        transition: transform 0.25s;
+      }
+      .arrow-down {
+        transform: rotate(180deg);
+      }
+      .req-content {
+        padding: 0 20px 18px 42px;
+      }
+      .req-content ul {
+        margin: 0;
+        padding-left: 16px;
+        font-size: 0.86rem;
+        color: var(--warn);
+      }
+      .req-content li {
+        margin-bottom: 6px;
+      }
 
-        /* Step cards */
-        .instruction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px; margin-bottom: 36px;
-        }
-        .step-card {
-            background: var(--bg); padding: 24px;
-            border-radius: 16px; border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-        .step-num {
-            background: var(--primary); color: var(--bg);
-            width: 27px; height: 27px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 7px; font-weight: 800;
-            font-size: .82rem; margin-bottom: 14px;
-        }
-        .step-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 700; }
-        .step-card p  { font-size: .86rem; color: var(--muted); margin: 0; }
-        .step-card code {
-            background: var(--bg2); padding: 1px 5px;
-            border-radius: 4px; font-family: 'DM Mono', monospace; font-size: .8em;
-        }
-        .step-card img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 12px; }
+      /* Step cards */
+      .instruction-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-bottom: 36px;
+      }
+      .step-card {
+        background: var(--bg);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      .step-num {
+        background: var(--primary);
+        color: var(--bg);
+        width: 27px;
+        height: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        font-weight: 800;
+        font-size: 0.82rem;
+        margin-bottom: 14px;
+      }
+      .step-card h3 {
+        margin: 0 0 7px;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .step-card p {
+        font-size: 0.86rem;
+        color: var(--muted);
+        margin: 0;
+      }
+      .step-card code {
+        background: var(--bg2);
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-family: "DM Mono", monospace;
+        font-size: 0.8em;
+      }
+      .step-card img {
+        max-width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        margin-top: 12px;
+      }
 
-        /* Zoom icon on image hover */
-        .step-card {
-            position: relative;
-        }
+      /* Zoom icon on image hover */
+      .step-card {
+        position: relative;
+      }
 
-        .step-card .zoom-icon {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            color: var(--zoom-icon-bg);
-            background: rgba(0, 0, 0, 0.0);
-            border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
+      .step-card .zoom-icon {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: var(--zoom-icon-bg);
+        background: rgba(0, 0, 0, 0);
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
 
-        .step-card:hover .zoom-icon {
-            opacity: 1;
-            animation: zoomPulse 0.6s ease-in-out;
-        }
+      .step-card:hover .zoom-icon {
+        opacity: 1;
+        animation: zoomPulse 0.6s ease-in-out;
+      }
 
-        .step-card img {
-            transition: opacity 0.3s ease;
-        }
+      .step-card img {
+        transition: opacity 0.3s ease;
+      }
 
-        .step-card:hover img {
-            opacity: 0.5;
-        }
+      .step-card:hover img {
+        opacity: 0.5;
+      }
 
-        @keyframes zoomPulse {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      @keyframes zoomPulse {
+        0% {
+          transform: translate(-50%, -50%) scale(0.8);
+          opacity: 0;
         }
+        50% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
 
-        /* Extractor panel */
-        .extractor-container {
-            background: var(--bg); border-radius: 20px;
-            padding: 34px; box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        .panel-label {
-            font-size: .72rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: .07em;
-            color: var(--muted); margin-bottom: 12px;
-            display: flex; align-items: center; gap: 7px;
-        }
+      /* Extractor panel */
+      .extractor-container {
+        background: var(--bg);
+        border-radius: 20px;
+        padding: 34px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+      }
+      .panel-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
 
-        textarea {
-            width: 100%; height: 170px;
-            border: 1.5px solid var(--border); border-radius: 10px;
-            padding: 15px; font-family: 'DM Mono', monospace;
-            font-size: 12.5px; resize: vertical;
-            background: var(--bg2); color: var(--text);
-            transition: border-color .2s, background .25s;
-        }
-        textarea:focus { outline: none; border-color: var(--accent); background: var(--bg); }
-        textarea::placeholder { color: var(--muted); }
+      textarea {
+        width: 100%;
+        height: 170px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        padding: 15px;
+        font-family: "DM Mono", monospace;
+        font-size: 12.5px;
+        resize: vertical;
+        background: var(--bg2);
+        color: var(--text);
+        transition:
+          border-color 0.2s,
+          background 0.25s;
+      }
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: var(--bg);
+      }
+      textarea::placeholder {
+        color: var(--muted);
+      }
 
-        /* Config grid */
+      /* Config grid */
+      .config-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 20px;
+      }
+      @media (max-width: 700px) {
         .config-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px; margin-top: 20px;
+          grid-template-columns: 1fr;
         }
-        @media (max-width: 700px) { .config-grid { grid-template-columns: 1fr; } }
+      }
 
-        .config-box {
-            background: var(--bg2); border-radius: 12px;
-            border: 1.5px solid var(--border); padding: 18px;
-        }
+      .config-box {
+        background: var(--bg2);
+        border-radius: 12px;
+        border: 1.5px solid var(--border);
+        padding: 18px;
+      }
 
-        /* Filter pills */
-        .filter-pill-group { display: flex; gap: 6px; flex-wrap: wrap; }
-        .filter-pill {
-            display: inline-flex; align-items: center; gap: 5px;
-            padding: 5px 13px; border-radius: 20px;
-            font-size: .78rem; font-weight: 600; cursor: pointer;
-            border: 1.5px solid var(--border); background: var(--bg);
-            color: var(--muted); transition: all .15s; user-select: none;
-        }
-        .filter-pill:hover  { border-color: var(--accent); color: var(--accent); }
-        .filter-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+      /* Filter pills */
+      .filter-pill-group {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .filter-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 13px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: var(--bg);
+        color: var(--muted);
+        transition: all 0.15s;
+        user-select: none;
+      }
+      .filter-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .filter-pill.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
 
-        .ext-filter-group {
-            display: flex; flex-wrap: wrap; gap: 5px;
-            margin-top: 10px; padding-top: 10px;
-            border-top: 1px solid var(--border);
-        }
-        .ext-filter-group.hidden { display: none; }
-        .ext-chip {
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 3px 10px; border-radius: 6px;
-            font-size: .74rem; font-weight: 600;
-            font-family: 'DM Mono', monospace; cursor: pointer;
-            border: 1.5px solid var(--border); background: var(--bg);
-            color: var(--muted); transition: all .15s; user-select: none;
-        }
-        .ext-chip:hover  { border-color: #a1a1aa; color: var(--text); }
-        .ext-chip.active { background: var(--success-bg); border-color: var(--success); color: var(--success); }
-        .ext-chip input  { display: none; }
-        .filter-note { font-size: .75rem; color: var(--muted); margin-top: 8px; }
+      .ext-filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .ext-filter-group.hidden {
+        display: none;
+      }
+      .ext-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 0.74rem;
+        font-weight: 600;
+        font-family: "DM Mono", monospace;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: var(--bg);
+        color: var(--muted);
+        transition: all 0.15s;
+        user-select: none;
+      }
+      .ext-chip:hover {
+        border-color: #a1a1aa;
+        color: var(--text);
+      }
+      .ext-chip.active {
+        background: var(--success-bg);
+        border-color: var(--success);
+        color: var(--success);
+      }
+      .ext-chip input {
+        display: none;
+      }
+      .filter-note {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
 
-        /* Concurrency slider */
-        .slider-row {
-            display: flex; align-items: center;
-            gap: 14px; margin-top: 10px;
-        }
-        input[type="range"] {
-            -webkit-appearance: none; appearance: none;
-            flex: 1; height: 5px;
-            background: var(--border); border-radius: 10px;
-            outline: none; cursor: pointer;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none;
-            width: 18px; height: 18px; border-radius: 50%;
-            background: var(--accent); cursor: pointer;
-            border: 2px solid var(--bg);
-            box-shadow: 0 0 0 2px var(--accent);
-            transition: transform .15s;
-        }
-        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-        .slider-value {
-            font-family: 'DM Mono', monospace;
-            font-size: .9rem; font-weight: 700;
-            color: var(--accent); min-width: 22px; text-align: center;
-        }
-        .concurrency-hint { font-size: .75rem; color: var(--muted); margin-top: 8px; }
+      /* Concurrency slider */
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 10px;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        flex: 1;
+        height: 5px;
+        background: var(--border);
+        border-radius: 10px;
+        outline: none;
+        cursor: pointer;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 0 2px var(--accent);
+        transition: transform 0.15s;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+      }
+      .slider-value {
+        font-family: "DM Mono", monospace;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--accent);
+        min-width: 22px;
+        text-align: center;
+      }
+      .concurrency-hint {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
 
-        /* Folder picker */
-        .folder-row {
-            display: flex; align-items: center;
-            gap: 10px; margin-top: 10px; flex-wrap: wrap;
-        }
-        #folderBtn {
-            display: inline-flex; align-items: center; gap: 7px;
-            background: var(--bg); border: 1.5px solid var(--border);
-            color: var(--text); padding: 8px 16px;
-            border-radius: 8px; font-size: .82rem; font-weight: 600;
-            font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .2s;
-        }
-        #folderBtn:hover { border-color: var(--accent); color: var(--accent); }
-        #folderBtn:disabled { opacity: .4; cursor: not-allowed; }
-        .folder-path {
-            font-family: 'DM Mono', monospace; font-size: .78rem;
-            color: var(--muted); flex: 1;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .folder-path.selected { color: var(--success); }
-        .subfolder-check {
-            display: flex; align-items: center; gap: 6px;
-            font-size: .78rem; color: var(--muted);
-            margin-top: 10px; cursor: pointer; user-select: none;
-        }
-        .subfolder-check input { accent-color: var(--accent); cursor: pointer; }
-        .subfolder-check.disabled { opacity: .4; pointer-events: none; }
-        .fsa-unavailable {
-            font-size: .75rem; color: var(--warn);
-            margin-top: 8px; display: none;
-        }
+      /* Folder picker */
+      .folder-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      #folderBtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--bg);
+        border: 1.5px solid var(--border);
+        color: var(--text);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      #folderBtn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      #folderBtn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .folder-path {
+        font-family: "DM Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--muted);
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .folder-path.selected {
+        color: var(--success);
+      }
+      .subfolder-check {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 10px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .subfolder-check input {
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+      .subfolder-check.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      .fsa-unavailable {
+        font-size: 0.75rem;
+        color: var(--warn);
+        margin-top: 8px;
+        display: none;
+      }
 
-        /* Progress */
-        .progress-container {
-            height: 5px; background: var(--bg2); border-radius: 10px;
-            overflow: hidden; display: none; margin: 20px 0 0;
-            border: 1px solid var(--border);
-        }
-        #progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-h));
-            width: 0%; transition: width .35s ease; border-radius: 10px;
-        }
+      /* Progress */
+      .progress-container {
+        height: 5px;
+        background: var(--bg2);
+        border-radius: 10px;
+        overflow: hidden;
+        display: none;
+        margin: 20px 0 0;
+        border: 1px solid var(--border);
+      }
+      #progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-h));
+        width: 0%;
+        transition: width 0.35s ease;
+        border-radius: 10px;
+      }
 
-        /* Stats bar */
-        .stats-bar {
-            display: none; align-items: center;
-            gap: 10px; margin-top: 16px; flex-wrap: wrap;
-        }
-        .stat-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 13px; border-radius: 8px;
-            font-size: .79rem; font-weight: 700;
-            font-family: 'DM Mono', monospace;
-        }
-        .stat-chip.total   { background: var(--bg2); color: var(--text); border: 1px solid var(--border); }
-        .stat-chip.success { background: var(--success-bg); color: var(--success); }
-        .stat-chip.failed  { background: var(--danger-bg);  color: var(--danger); }
-        .stat-chip.dupes   { background: #fff7ed; color: #c2410c; }
-        [data-theme="dark"] .stat-chip.dupes { background: #1c0f00; color: #fb923c; }
-        .stat-chip.eta     { background: #ede9fe; color: #5b21b6; margin-left: auto; }
-        [data-theme="dark"] .stat-chip.eta { background: #2e1f6b; color: #a78bfa; }
+      /* Stats bar */
+      .stats-bar {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      .stat-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 13px;
+        border-radius: 8px;
+        font-size: 0.79rem;
+        font-weight: 700;
+        font-family: "DM Mono", monospace;
+      }
+      .stat-chip.total {
+        background: var(--bg2);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .stat-chip.success {
+        background: var(--success-bg);
+        color: var(--success);
+      }
+      .stat-chip.failed {
+        background: var(--danger-bg);
+        color: var(--danger);
+      }
+      .stat-chip.dupes {
+        background: #fff7ed;
+        color: #c2410c;
+      }
+      [data-theme="dark"] .stat-chip.dupes {
+        background: #1c0f00;
+        color: #fb923c;
+      }
+      .stat-chip.eta {
+        background: #ede9fe;
+        color: #5b21b6;
+        margin-left: auto;
+      }
+      [data-theme="dark"] .stat-chip.eta {
+        background: #2e1f6b;
+        color: #a78bfa;
+      }
 
-        /* Duplicate filename toggle */
-        .dup-toggle-row {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-top: 14px; padding-top: 14px;
-            border-top: 1px solid var(--border);
-            gap: 10px;
-        }
-        .dup-toggle-label {
-            font-size: .75rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: .06em;
-            color: var(--muted); display: flex; align-items: center; gap: 6px;
-            flex-shrink: 0;
-        }
-        .dup-pill-group { display: flex; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; }
-        .dup-pill {
-            padding: 5px 12px; font-size: .76rem; font-weight: 600;
-            font-family: 'DM Sans', sans-serif; cursor: pointer;
-            background: var(--bg); color: var(--muted);
-            border: none; transition: all .15s; user-select: none;
-            display: flex; align-items: center; gap: 5px;
-        }
-        .dup-pill:first-child { border-right: 1.5px solid var(--border); }
-        .dup-pill.active      { background: var(--accent); color: #fff; }
-        .dup-pill:hover:not(.active) { background: var(--bg2); color: var(--text); }
-        .dup-hint { font-size: .73rem; color: var(--muted); margin-top: 8px; }
+      /* Duplicate filename toggle */
+      .dup-toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        gap: 10px;
+      }
+      .dup-toggle-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .dup-pill-group {
+        display: flex;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .dup-pill {
+        padding: 5px 12px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        background: var(--bg);
+        color: var(--muted);
+        border: none;
+        transition: all 0.15s;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .dup-pill:first-child {
+        border-right: 1.5px solid var(--border);
+      }
+      .dup-pill.active {
+        background: var(--accent);
+        color: #fff;
+      }
+      .dup-pill:hover:not(.active) {
+        background: var(--bg2);
+        color: var(--text);
+      }
+      .dup-hint {
+        font-size: 0.73rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
 
-        /* Action buttons */
-        .action-bar { display: flex; gap: 10px; margin-top: 20px; }
-        #startBtn {
-            background: var(--primary); color: var(--bg);
-            border: none; padding: 14px 28px; border-radius: 10px;
-            font-weight: 700; font-size: .95rem;
-            font-family: 'DM Sans', sans-serif; cursor: pointer;
-            flex: 3; transition: all .2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        #cancelBtn {
-            background: var(--danger-bg); color: var(--danger);
-            border: 1.5px solid var(--danger); padding: 14px 20px;
-            border-radius: 10px; font-weight: 700; font-size: .88rem;
-            font-family: 'DM Sans', sans-serif; cursor: pointer;
-            flex: 1; transition: all .2s;
-            display: none; align-items: center; justify-content: center; gap: 7px;
-        }
-        #clearLogBtn {
-            background: var(--bg2); color: var(--muted);
-            border: 1.5px solid var(--border); padding: 14px 18px;
-            border-radius: 10px; font-weight: 600; font-size: .88rem;
-            font-family: 'DM Sans', sans-serif; cursor: pointer;
-            flex: 1; transition: all .2s;
-        }
-        #startBtn:hover    { background: var(--accent); }
-        #cancelBtn:hover   { background: #fee2e2; }
-        #clearLogBtn:hover { border-color: var(--muted); color: var(--text); }
-        #startBtn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+      /* Action buttons */
+      .action-bar {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      #startBtn {
+        background: var(--primary);
+        color: var(--bg);
+        border: none;
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        flex: 3;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      #cancelBtn {
+        background: var(--danger-bg);
+        color: var(--danger);
+        border: 1.5px solid var(--danger);
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.88rem;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.2s;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      #clearLogBtn {
+        background: var(--bg2);
+        color: var(--muted);
+        border: 1.5px solid var(--border);
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.2s;
+      }
+      #startBtn:hover {
+        background: var(--accent);
+      }
+      #cancelBtn:hover {
+        background: #fee2e2;
+      }
+      #clearLogBtn:hover {
+        border-color: var(--muted);
+        color: var(--text);
+      }
+      #startBtn:disabled {
+        background: var(--border);
+        color: var(--muted);
+        cursor: not-allowed;
+      }
 
-        /* Console */
-        .console-header {
-            display: flex; align-items: center;
-            justify-content: space-between; margin: 20px 0 8px;
+      /* Console */
+      .console-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0 8px;
+      }
+      .console-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .console-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #3f3f46;
+        display: inline-block;
+        transition: background 0.3s;
+      }
+      .console-dot.active {
+        background: var(--success);
+        box-shadow: 0 0 6px var(--success);
+        animation: pulse 1.4s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
         }
-        .console-label {
-            font-size: .7rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: .07em; color: var(--muted);
-            display: flex; align-items: center; gap: 8px;
+        50% {
+          opacity: 0.4;
         }
-        .console-dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #3f3f46; display: inline-block; transition: background .3s;
-        }
-        .console-dot.active { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse 1.4s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+      }
 
-        #copyLogBtn {
-            background: var(--bg); border: 1px solid var(--border);
-            color: var(--muted); padding: 6px 12px;
-            border-radius: 6px; cursor: pointer;
-            font-size: .7rem; font-weight: 600;
-            display: flex; align-items: center; gap: 6px;
-            transition: all .2s;
-        }
-        #copyLogBtn:hover { border-color: var(--accent); color: var(--accent); }
-        #copyLogBtn:active { transform: scale(0.95); }
+      #copyLogBtn {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+      #copyLogBtn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      #copyLogBtn:active {
+        transform: scale(0.95);
+      }
 
-        #log {
-            background: var(--console-bg); color: #a1a1aa;
-            padding: 18px; border-radius: 10px;
-            font-family: 'DM Mono', monospace; font-size: .78rem;
-            height: 260px; overflow-y: auto;
-            border: 1px solid var(--console-border);
-        }
-        .log-entry { margin-bottom: 5px; padding-left: 11px; border-left: 2px solid #3f3f46; line-height: 1.55; }
-        .log-success { color: #4ade80; border-color: #4ade80; }
-        .log-warn    { color: #fbbf24; border-color: #fbbf24; }
-        .log-info    { color: #818cf8; border-color: #818cf8; }
-        .log-dim     { color: #52525b; border-color: #3f3f46; }
+      #log {
+        background: var(--console-bg);
+        color: #a1a1aa;
+        padding: 18px;
+        border-radius: 10px;
+        font-family: "DM Mono", monospace;
+        font-size: 0.78rem;
+        height: 260px;
+        overflow-y: auto;
+        border: 1px solid var(--console-border);
+      }
+      .log-entry {
+        margin-bottom: 5px;
+        padding-left: 11px;
+        border-left: 2px solid #3f3f46;
+        line-height: 1.55;
+      }
+      .log-success {
+        color: #4ade80;
+        border-color: #4ade80;
+      }
+      .log-warn {
+        color: #fbbf24;
+        border-color: #fbbf24;
+      }
+      .log-info {
+        color: #818cf8;
+        border-color: #818cf8;
+      }
+      .log-dim {
+        color: #52525b;
+        border-color: #3f3f46;
+      }
 
-        /* Footer */
-        footer {
-            margin-top: 72px; padding: 44px 20px;
-            text-align: center; background: var(--bg);
-            border-top: 1px solid var(--border);
-        }
-        .ko-fi-img { height: 36px; transition: transform .2s; margin-bottom: 14px; }
-        .ko-fi-img:hover { transform: scale(1.07); }
-        .text-xs { font-size: .8rem; color: var(--muted); line-height: 2.2; }
-        .minimal-link { text-decoration: none; color: var(--text); font-weight: 600; }
-        .minimal-link:hover { color: var(--accent); }
+      /* Footer */
+      footer {
+        margin-top: 72px;
+        padding: 44px 20px;
+        text-align: center;
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+      }
+      .ko-fi-img {
+        height: 36px;
+        transition: transform 0.2s;
+        margin-bottom: 14px;
+      }
+      .ko-fi-img:hover {
+        transform: scale(1.07);
+      }
+      .text-xs {
+        font-size: 0.8rem;
+        color: var(--muted);
+        line-height: 2.2;
+      }
+      .minimal-link {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+      }
+      .minimal-link:hover {
+        color: var(--accent);
+      }
 
-        @media (max-width: 680px) {
-            .action-bar { flex-direction: column; }
-            h1 { font-size: 2rem; }
-            .stat-chip.eta { margin-left: 0; }
-            .theme-toggle { position: static; margin-bottom: 16px; }
+      @media (max-width: 680px) {
+        .action-bar {
+          flex-direction: column;
         }
-
-        /* Lightbox Styles */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            cursor: pointer;
+        h1 {
+          font-size: 2rem;
         }
-
-        .lightbox-content {
-            position: relative;
-            margin: auto;
-            display: block;
-            max-width: 70%;
-            max-height: 70%;
+        .stat-chip.eta {
+          margin-left: 0;
         }
-
-        .lightbox-content img {
-            display: block;
-            margin: auto;
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 8px;
+        .theme-toggle {
+          position: static;
+          margin-bottom: 16px;
         }
+      }
 
+      /* Lightbox Styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        cursor: pointer;
+      }
+
+      .lightbox-content {
+        position: relative;
+        margin: auto;
+        display: block;
+        max-width: 70%;
+        max-height: 70%;
+      }
+
+      .lightbox-content img {
+        display: block;
+        margin: auto;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 8px;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        line-height: 1;
+      }
+
+      .lightbox-close:hover {
+        color: #ccc;
+      }
+
+      @media (max-width: 680px) {
         .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            line-height: 1;
+          top: 10px;
+          right: 10px;
+          font-size: 30px;
         }
-
-        .lightbox-close:hover {
-            color: #ccc;
-        }
-
-        @media (max-width: 680px) {
-            .lightbox-close {
-                top: 10px;
-                right: 10px;
-                font-size: 30px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-
-<div class="wrapper">
-    <header>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
-            <i class="fas fa-moon"></i> Dark mode
+          <i class="fas fa-moon"></i> Dark mode
         </button>
         <h1>Squarespace Asset Utility</h1>
-        <p class="lead">Batch-download your Squarespace media library images securely and efficiently.</p>
-        <div class="badge"><i class="fab fa-chrome"></i> Optimized for Google Chrome</div>
-    </header>
-
-    <!-- Mobile Device Warning -->
-    <div id="mobileWarning" class="mobile-warning">
-        <div class="mobile-warning-content">
-            <i class="fas fa-mobile-alt"></i>
-            <div class="mobile-warning-text">
-                <strong>Mobile Device Detected</strong>
-                <p>This utility is meant to be used on a computer only. Be warned this is not meant to be used on a mobile device.</p>
-            </div>
+        <p class="lead">
+          Batch-download your Squarespace media library images securely and
+          efficiently.
+        </p>
+        <div class="badge">
+          <i class="fab fa-chrome"></i> Optimized for Google Chrome
         </div>
-    </div>
+      </header>
 
-    <div class="req-container">
+      <!-- Mobile Device Warning -->
+      <div id="mobileWarning" class="mobile-warning">
+        <div class="mobile-warning-content">
+          <i class="fas fa-mobile-alt"></i>
+          <div class="mobile-warning-text">
+            <strong>Mobile Device Detected</strong>
+            <p>
+              This utility is meant to be used on a computer only. Be warned
+              this is not meant to be used on a mobile device.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-container">
         <div class="req-header" onclick="toggleRequirements()">
-            <div class="req-header-left">
-                <i class="fas fa-triangle-exclamation"></i>
-                <span>Technical Requirements & Hardware Warnings</span>
-            </div>
-            <i class="fas fa-chevron-up arrow-icon" id="reqArrow"></i>
+          <div class="req-header-left">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span>Technical Requirements & Hardware Warnings</span>
+          </div>
+          <i class="fas fa-chevron-up arrow-icon" id="reqArrow"></i>
         </div>
         <div class="req-content" id="reqContent">
-            <ul>
-                <li><strong>Desktop Required:</strong> Designed for high-volume file handling. Will likely fail on mobile.</li>
-                <li><strong>Available Storage:</strong> Ensure sufficient disk space for your full library before starting.</li>
-                <li><strong>RAM Management:</strong> 4–8 GB of free system RAM recommended for large libraries. Higher concurrency settings need more RAM.</li>
-                <li><strong>Chrome Settings (fallback mode):</strong> If no folder is selected, go to Settings → Downloads and turn <strong>OFF</strong> "Ask where to save each file before downloading."</li>
-            </ul>
+          <ul>
+            <li>
+              <strong>Desktop Required:</strong> Designed for high-volume file
+              handling. Will likely fail on mobile.
+            </li>
+            <li>
+              <strong>Available Storage:</strong> Ensure sufficient disk space
+              for your full library before starting.
+            </li>
+            <li>
+              <strong>RAM Management:</strong> 4–8 GB of free system RAM
+              recommended for large libraries. Higher concurrency settings need
+              more RAM.
+            </li>
+            <li>
+              <strong>Chrome Settings (fallback mode):</strong> If no folder is
+              selected, go to Settings → Downloads and turn
+              <strong>OFF</strong> "Ask where to save each file before
+              downloading."
+            </li>
+          </ul>
         </div>
-    </div>
+      </div>
 
-    <div class="req-container" style="background: var(--danger-bg); border-color: var(--danger);">
-        <div class="req-header" onclick="toggleVideoNotice()" style="color: var(--danger);">
-            <div class="req-header-left">
-                <i class="fas fa-circle-info"></i>
-                <span>Images Only — Video Download Guide</span>
-            </div>
-            <i class="fas fa-chevron-up arrow-icon" id="videoArrow"></i>
+      <div
+        class="req-container"
+        style="background: var(--danger-bg); border-color: var(--danger)"
+      >
+        <div
+          class="req-header"
+          onclick="toggleVideoNotice()"
+          style="color: var(--danger)"
+        >
+          <div class="req-header-left">
+            <i class="fas fa-circle-info"></i>
+            <span>Images Only — Video Download Guide</span>
+          </div>
+          <i class="fas fa-chevron-up arrow-icon" id="videoArrow"></i>
         </div>
-        <div class="req-content" id="videoContent" style="display: none;">
-            <p style="margin: 0 0 14px; color: var(--text); font-weight: 600;">
-                ⚠️ <strong>This utility processes IMAGES ONLY.</strong> Due to Squarespace's backend loading structure, video files cannot be downloaded through this tool.
-            </p>
-            <p style="margin: 0 0 14px; color: var(--text);">
-                If your Squarespace Asset Library contains videos, you can download them separately using the <strong>Video DownloadHelper</strong> browser extension:
-            </p>
-            <ul style="margin: 0 0 14px; padding-left: 16px;">
-                <li><strong>Install the extension:</strong> <a href="https://chromewebstore.google.com/detail/video-downloadhelper/lmjnegcaeklhafolokijcfjliaokphfk" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">Video DownloadHelper on Chrome Web Store</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">Video DownloadHelper on Firefox Add-ons</a></li>
-                <li><strong>Visit your Squarespace Asset Library</strong> in your web browser</li>
-                <li><strong>Click on each video</strong> to go to the video page</li>
-                <li><strong>Click the Video DownloadHelper icon</strong> in your browser toolbar when hovering over a video</li>
-                <li><strong>Select your preferred quality</strong> and download location</li>
-            </ul>
-            <p style="margin: 0; color: var(--text);">
-                <i class="fas fa-play-circle"></i> <strong>Video Tutorial:</strong> I've prepared a tutorial video showing exactly how to use Video DownloadHelper. Check back soon or watch our main tutorial (<a href="https://youtu.be/ioiUFjuxeF8" target="_blank" style="color: var(--danger); text-decoration: underline; font-weight: 600;">here</a>) for updates.
-            </p>
+        <div class="req-content" id="videoContent" style="display: none">
+          <p style="margin: 0 0 14px; color: var(--text); font-weight: 600">
+            ⚠️ <strong>This utility processes IMAGES ONLY.</strong> Due to
+            Squarespace's backend loading structure, video files cannot be
+            downloaded through this tool.
+          </p>
+          <p style="margin: 0 0 14px; color: var(--text)">
+            If your Squarespace Asset Library contains videos, you can download
+            them separately using the
+            <strong>Video DownloadHelper</strong> browser extension:
+          </p>
+          <ul style="margin: 0 0 14px; padding-left: 16px">
+            <li>
+              <strong>Install the extension:</strong>
+              <a
+                href="https://chromewebstore.google.com/detail/video-downloadhelper/lmjnegcaeklhafolokijcfjliaokphfk"
+                target="_blank"
+                style="
+                  color: var(--danger);
+                  text-decoration: underline;
+                  font-weight: 600;
+                "
+                >Video DownloadHelper on Chrome Web Store</a
+              >
+              or
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/"
+                target="_blank"
+                style="
+                  color: var(--danger);
+                  text-decoration: underline;
+                  font-weight: 600;
+                "
+                >Video DownloadHelper on Firefox Add-ons</a
+              >
+            </li>
+            <li>
+              <strong>Visit your Squarespace Asset Library</strong> in your web
+              browser
+            </li>
+            <li>
+              <strong>Click on each video</strong> to go to the video page
+            </li>
+            <li>
+              <strong>Click the Video DownloadHelper icon</strong> in your
+              browser toolbar when hovering over a video
+            </li>
+            <li>
+              <strong>Select your preferred quality</strong> and download
+              location
+            </li>
+          </ul>
+          <p style="margin: 0; color: var(--text)">
+            <i class="fas fa-play-circle"></i>
+            <strong>Video Tutorial:</strong> I've prepared a tutorial video
+            showing exactly how to use Video DownloadHelper. Check back soon or
+            watch our main tutorial (<a
+              href="https://youtu.be/ioiUFjuxeF8"
+              target="_blank"
+              style="
+                color: var(--danger);
+                text-decoration: underline;
+                font-weight: 600;
+              "
+              >here</a
+            >) for updates.
+          </p>
         </div>
+      </div>
+      <div
+        class="req-container"
+        style="background: rgba(52, 152, 219, 0.1); border-color: #3498db"
+      >
+        <div
+          class="req-header"
+          onclick="toggleWebPNotice()"
+          style="color: #2980b9"
+        >
+          <div class="req-header-left">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <span>Smart Format Detection & .webp Files</span>
+          </div>
+          <i class="fas fa-chevron-up arrow-icon" id="webpArrow"></i>
         </div>
-        <div class="req-container" style="background: rgba(52, 152, 219, 0.1); border-color: #3498db;">
-    <div class="req-header" onclick="toggleWebPNotice()" style="color: #2980b9;">
-        <div class="req-header-left">
-            <i class="fas fa-image"></i>
-            <span>Why are my files saving as .webp?</span>
+        <div class="req-content" id="webpContent" style="display: none">
+          <p style="margin: 0 0 14px; color: var(--text)">
+            This utility specifically requests your
+            <strong>original uploaded formats</strong> (PNG/JPG) from
+            Squarespace. However, modern CDNs often "force" a conversion to
+            <strong>.webp</strong> to save space and speed up loading.
+          </p>
+          <ul style="margin: 0 0 14px; padding-left: 16px; color: var(--text)">
+            <li>
+              <strong>Automatic Correction:</strong> We perform a real-time
+              "MIME-check" on every download. If the server ignores our request
+              and sends a WebP, the tool
+              <strong>automatically renames the file</strong> to
+              <code>.webp</code>.
+            </li>
+            <li>
+              <strong>Why this matters:</strong> If we saved a WebP as a
+              <code>.png</code>, the file would be "corrupt" and rejected when
+              you try to re-upload it or edit it in apps like Preview.
+            </li>
+            <li>
+              <strong>High Compatibility:</strong> These
+              <code>.webp</code> files are high-quality and natively supported
+              by Squarespace, Shopify, WordPress, and all modern Operating
+              Systems.
+            </li>
+            <li>
+              <strong>Pro Tip:</strong> If you strictly need a
+              <code>.png</code> for a legacy project, use a bulk converter on
+              your Mac (like <em>sips</em> or <em>Quick Actions</em>) after the
+              download completes.
+            </li>
+          </ul>
         </div>
-        <i class="fas fa-chevron-up arrow-icon" id="webpArrow"></i>
-    </div>
-    <div class="req-content" id="webpContent" style="display: none;">
-        <p style="margin: 0 0 14px; color: var(--text);">
-            Squarespace uses <strong>Content Negotiation</strong> to serve the most efficient image format to your browser. Even if you originally uploaded a .jpg or .png, Squarespace often delivers a <strong>.webp</strong> file because it is smaller and higher quality.
-        </p>
-        <ul style="margin: 0 0 14px; padding-left: 16px; color: var(--text);">
-            <li><strong>Accuracy:</strong> This utility performs a "MIME-check" on every file. If the Squarespace server sends a WebP image, we save it with the <code>.webp</code> extension to ensure your computer can open it without errors.</li>
-            <li><strong>Compatibility:</strong> WebP is a modern standard supported by all major browsers, macOS, and Windows.</li>
-            <li><strong>Re-converting:</strong> If your workflow strictly requires older formats (like .png), we recommend using a batch converter on your computer after the download is complete to preserve the highest image quality.</li>
-        </ul>
-    </div>
-</div>
+      </div>
 
-    <p style="text-align: center; margin: 24px 0;">Watch a video tutorial on using this site <a href="https://youtu.be/CiKg0JN7iUc" target="_blank">here</a>.</p>
+      <p style="text-align: center; margin: 24px 0">
+        Watch a video tutorial on using this site
+        <a href="https://youtu.be/CiKg0JN7iUc" target="_blank">here</a>.
+      </p>
 
-    <div class="instruction-grid">
+      <div class="instruction-grid">
         <div class="step-card">
-            <div class="step-num">1</div>
-            <h3>Load Library</h3>
-            <p>Scroll to the very bottom of your Squarespace Asset Library until all items have finished loading.</p>
-            <div class="step-card-image">
-            <img src="images/step1.png" alt="Screenshot of Squarespace Asset Library with scrollbar at the bottom, showing all items loaded" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
+          <div class="step-num">1</div>
+          <h3>Load Library</h3>
+          <p>
+            Scroll to the very bottom of your Squarespace Asset Library until
+            all items have finished loading.
+          </p>
+          <div class="step-card-image">
+            <img
+              src="images/step1.png"
+              alt="Screenshot of Squarespace Asset Library with scrollbar at the bottom, showing all items loaded"
+              style="
+                margin-top: 12px;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+              "
+            />
             <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-                </div>
+          </div>
         </div>
         <div class="step-card">
-            <div class="step-num">2</div>
-            <h3>Right-Click to Inspect</h3>
-            <p>Right-click on the asset page and select "Inspect" to view its HTML structure.</p>
-            <img src="images/step2.png" alt="Screenshot of Squarespace page with right-click context menu open and 'Inspect' option highlighted" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+          <div class="step-num">2</div>
+          <h3>Right-Click to Inspect</h3>
+          <p>
+            Right-click on the asset page and select "Inspect" to view its HTML
+            structure.
+          </p>
+          <img
+            src="images/step2.png"
+            alt="Screenshot of Squarespace page with right-click context menu open and 'Inspect' option highlighted"
+            style="
+              margin-top: 12px;
+              border-radius: 8px;
+              border: 1px solid var(--border);
+            "
+          />
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
         </div>
         <div class="step-card">
-            <div class="step-num">3</div>
-            <h3>Copy Body</h3>
-            <p>Find the <code>&lt;body&gt;</code> element, right-click it, and select <strong>Copy → Copy element</strong>.</p>
-            <img src="images/step3.png" alt="Screenshot of Chrome DevTools Elements panel, showing the body element of the Squarespace page being right-clicked with the 'Copy element' option highlighted" style="margin-top:12px; border-radius:8px; border:1px solid var(--border);">
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+          <div class="step-num">3</div>
+          <h3>Copy Body</h3>
+          <p>
+            Find the <code>&lt;body&gt;</code> element, right-click it, and
+            select <strong>Copy → Copy element</strong>.
+          </p>
+          <img
+            src="images/step3.png"
+            alt="Screenshot of Chrome DevTools Elements panel, showing the body element of the Squarespace page being right-clicked with the 'Copy element' option highlighted"
+            style="
+              margin-top: 12px;
+              border-radius: 8px;
+              border: 1px solid var(--border);
+            "
+          />
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
         </div>
         <div class="step-card">
-            <div class="step-num">4</div>
-            <h3>Configure & Run</h3>
-            <p>Paste below, choose a save folder, set your filters and speed, then click Extract.</p>
+          <div class="step-num">4</div>
+          <h3>Configure & Run</h3>
+          <p>
+            Paste below, choose a save folder, set your filters and speed, then
+            click Extract.
+          </p>
         </div>
-    </div>
+      </div>
 
-    <div class="extractor-container">
-        <div style="color: black; font-size: .875rem;" class="panel-label"><i class="fas fa-terminal"></i> <strong>Input Source</strong></div>
-        <textarea id="htmlInput" placeholder="Paste your <body...> element code here…"></textarea>
+      <div class="extractor-container">
+        <div style="color: black; font-size: 0.875rem" class="panel-label">
+          <i class="fas fa-terminal"></i> <strong>Input Source</strong>
+        </div>
+        <textarea
+          id="htmlInput"
+          placeholder="Paste your <body...> element code here…"
+        ></textarea>
 
         <div class="config-grid">
-
-            <!-- Filter -->
-            <div class="config-box">
-                <div class="panel-label"><i class="fas fa-filter"></i> File Type Filter</div>
-                <div class="filter-pill-group" id="categoryPills">
-                    <span class="filter-pill active" data-cat="all"    onclick="selectCategory('all')"><i class="fas fa-layer-group"></i> All</span>
-                    <span class="filter-pill"        data-cat="custom" onclick="selectCategory('custom')"><i class="fas fa-sliders"></i> Custom…</span>
-                </div>
-
-                <div class="ext-filter-group hidden" id="extGroup">
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="jpg"  checked> .jpg</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="jpeg" checked> .jpeg</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="png"  checked> .png</label>
-                    <label class="ext-chip active" data-type="image"><input type="checkbox" value="webp" checked> .webp</label>
-                                 </div>
-                <p class="filter-note" id="filterNote">Downloading all detected asset types.</p>
-
-                <div class="dup-toggle-row">
-                    <span class="dup-toggle-label"><i class="fas fa-copy"></i> Same-name files</span>
-                    <div class="dup-pill-group">
-                        <button class="dup-pill active" id="dupDownloadBtn" onclick="setDupMode('download')">
-                            <i class="fas fa-download"></i> Download all
-                        </button>
-                        <button class="dup-pill" id="dupSkipBtn" onclick="setDupMode('skip')">
-                            <i class="fas fa-ban"></i> Skip dupes
-                        </button>
-                    </div>
-                </div>
-                <p class="dup-hint" id="dupHint">Files with identical names will be renamed (e.g. photo_2.jpg) so nothing is lost.</p>
+          <!-- Filter -->
+          <div class="config-box">
+            <div class="panel-label">
+              <i class="fas fa-filter"></i> File Type Filter
+            </div>
+            <div class="filter-pill-group" id="categoryPills">
+              <span
+                class="filter-pill active"
+                data-cat="all"
+                onclick="selectCategory('all')"
+                ><i class="fas fa-layer-group"></i> All</span
+              >
+              <span
+                class="filter-pill"
+                data-cat="custom"
+                onclick="selectCategory('custom')"
+                ><i class="fas fa-sliders"></i> Custom…</span
+              >
             </div>
 
-            <!-- Speed + Folder -->
-            <div class="config-box" style="display:flex;flex-direction:column;gap:20px;">
-
-                <div>
-                    <div class="panel-label"><i class="fas fa-gauge-high"></i> Download Speed</div>
-                    <div class="slider-row">
-                        <input type="range" id="concurrencySlider" min="1" max="5" value="1"
-                               oninput="updateSlider(this.value)">
-                        <span class="slider-value" id="sliderVal">1</span>
-                    </div>
-                    <p class="concurrency-hint" id="concurrencyHint">Sequential — 1 file at a time. Safest for large libraries.</p>
-                </div>
-
-                <div>
-                    <div class="panel-label"><i class="fas fa-folder-open"></i> Save Location</div>
-                    <div class="folder-row">
-                        <button id="folderBtn" onclick="pickFolder()">
-                            <i class="fas fa-folder-plus"></i> Choose Folder
-                        </button>
-                        <span class="folder-path" id="folderPath">Default Downloads folder</span>
-                    </div>
-                    <label class="subfolder-check disabled" id="subfolderLabel">
-                        <input type="checkbox" id="subfolderCheck">
-                        Organise into /images subfolder
-                    </label>
-                    <p class="fsa-unavailable" id="fsaNotice">
-                        <i class="fas fa-circle-info"></i> Folder picker requires Chrome 86+. Files will save to your Downloads folder instead.
-                    </p>
-                </div>
-
+            <div class="ext-filter-group hidden" id="extGroup">
+              <label class="ext-chip active" data-type="image"
+                ><input type="checkbox" value="jpg" checked /> .jpg</label
+              >
+              <label class="ext-chip active" data-type="image"
+                ><input type="checkbox" value="jpeg" checked /> .jpeg</label
+              >
+              <label class="ext-chip active" data-type="image"
+                ><input type="checkbox" value="png" checked /> .png</label
+              >
+              <label class="ext-chip active" data-type="image"
+                ><input type="checkbox" value="webp" checked /> .webp</label
+              >
             </div>
+            <p class="filter-note" id="filterNote">
+              Downloading all detected asset types.
+            </p>
+
+            <div class="dup-toggle-row">
+              <span class="dup-toggle-label"
+                ><i class="fas fa-copy"></i> Same-name files</span
+              >
+              <div class="dup-pill-group">
+                <button
+                  class="dup-pill active"
+                  id="dupDownloadBtn"
+                  onclick="setDupMode('download')"
+                >
+                  <i class="fas fa-download"></i> Download all
+                </button>
+                <button
+                  class="dup-pill"
+                  id="dupSkipBtn"
+                  onclick="setDupMode('skip')"
+                >
+                  <i class="fas fa-ban"></i> Skip dupes
+                </button>
+              </div>
+            </div>
+            <p class="dup-hint" id="dupHint">
+              Files with identical names will be renamed (e.g. photo_2.jpg) so
+              nothing is lost.
+            </p>
+          </div>
+
+          <!-- Speed + Folder -->
+          <div
+            class="config-box"
+            style="display: flex; flex-direction: column; gap: 20px"
+          >
+            <div>
+              <div class="panel-label">
+                <i class="fas fa-gauge-high"></i> Download Speed
+              </div>
+              <div class="slider-row">
+                <input
+                  type="range"
+                  id="concurrencySlider"
+                  min="1"
+                  max="5"
+                  value="1"
+                  oninput="updateSlider(this.value)"
+                />
+                <span class="slider-value" id="sliderVal">1</span>
+              </div>
+              <p class="concurrency-hint" id="concurrencyHint">
+                Sequential — 1 file at a time. Safest for large libraries.
+              </p>
+            </div>
+
+            <div>
+              <div class="panel-label">
+                <i class="fas fa-folder-open"></i> Save Location
+              </div>
+              <div class="folder-row">
+                <button id="folderBtn" onclick="pickFolder()">
+                  <i class="fas fa-folder-plus"></i> Choose Folder
+                </button>
+                <span class="folder-path" id="folderPath"
+                  >Default Downloads folder</span
+                >
+              </div>
+              <label class="subfolder-check disabled" id="subfolderLabel">
+                <input type="checkbox" id="subfolderCheck" />
+                Organise into /images subfolder
+              </label>
+              <p class="fsa-unavailable" id="fsaNotice">
+                <i class="fas fa-circle-info"></i> Folder picker requires Chrome
+                86+. Files will save to your Downloads folder instead.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div class="progress-container" id="progContainer">
-            <div id="progress-fill"></div>
+          <div id="progress-fill"></div>
         </div>
 
         <div class="stats-bar" id="statsBar">
-            <span class="stat-chip total"   id="statTotal">  <i class="fas fa-layer-group"></i> 0 total</span>
-            <span class="stat-chip success" id="statSuccess"><i class="fas fa-circle-check"></i> 0 ok</span>
-            <span class="stat-chip failed"  id="statFailed"> <i class="fas fa-circle-xmark"></i> 0 failed</span>
-            <span class="stat-chip dupes"   id="statDupes"  style="display:none;"><i class="fas fa-ban"></i> 0 skipped</span>
-            <span class="stat-chip eta"     id="statEta">    <i class="fas fa-clock"></i> Calculating…</span>
+          <span class="stat-chip total" id="statTotal">
+            <i class="fas fa-layer-group"></i> 0 total</span
+          >
+          <span class="stat-chip success" id="statSuccess"
+            ><i class="fas fa-circle-check"></i> 0 ok</span
+          >
+          <span class="stat-chip failed" id="statFailed">
+            <i class="fas fa-circle-xmark"></i> 0 failed</span
+          >
+          <span class="stat-chip dupes" id="statDupes" style="display: none"
+            ><i class="fas fa-ban"></i> 0 skipped</span
+          >
+          <span class="stat-chip eta" id="statEta">
+            <i class="fas fa-clock"></i> Calculating…</span
+          >
         </div>
 
         <div class="action-bar">
-            <button id="startBtn" onclick="startExtraction()">
-                <i class="fas fa-bolt"></i> Extract & Download Assets
-            </button>
-            <button id="cancelBtn" onclick="cancelExtraction()">
-                <i class="fas fa-stop-circle"></i> Cancel
-            </button>
-            <button id="clearLogBtn" onclick="clearLog()">
-                <i class="fas fa-trash-can"></i> Clear
-            </button>
+          <button id="startBtn" onclick="startExtraction()">
+            <i class="fas fa-bolt"></i> Extract & Download Assets
+          </button>
+          <button id="cancelBtn" onclick="cancelExtraction()">
+            <i class="fas fa-stop-circle"></i> Cancel
+          </button>
+          <button id="clearLogBtn" onclick="clearLog()">
+            <i class="fas fa-trash-can"></i> Clear
+          </button>
         </div>
 
         <div class="console-header">
-            <span class="console-label"><span class="console-dot" id="consoleDot"></span> Console</span>
-            <button id="copyLogBtn" onclick="copyLog()" title="Copy console output">
-                <i class="fas fa-copy"></i> Copy
-            </button>
+          <span class="console-label"
+            ><span class="console-dot" id="consoleDot"></span> Console</span
+          >
+          <button
+            id="copyLogBtn"
+            onclick="copyLog()"
+            title="Copy console output"
+          >
+            <i class="fas fa-copy"></i> Copy
+          </button>
         </div>
         <div id="log">
-            <div class="log-entry log-dim">Terminal ready. Awaiting input source…</div>
+          <div class="log-entry log-dim">
+            Terminal ready. Awaiting input source…
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<footer>
-    <a href="https://ko-fi.com/scheerapps" target="_blank" rel="noopener">
-        <img class="ko-fi-img" src="https://storage.ko-fi.com/cdn/kofi5.png?v=6" alt="Support on Ko-fi">
-    </a>
-    <p class="text-xs">
-        <a href="https://github.com/kyletscheer/squarespace_assets" target="_blank" class="minimal-link">
-            <i class="fab fa-github"></i> View Source on GitHub
+    <footer>
+      <a href="https://ko-fi.com/scheerapps" target="_blank" rel="noopener">
+        <img
+          class="ko-fi-img"
+          src="https://storage.ko-fi.com/cdn/kofi5.png?v=6"
+          alt="Support on Ko-fi"
+        />
+      </a>
+      <p class="text-xs">
+        <a
+          href="https://github.com/kyletscheer/squarespace_assets"
+          target="_blank"
+          class="minimal-link"
+        >
+          <i class="fab fa-github"></i> View Source on GitHub
         </a>
-    </p>
-    <p class="text-xs">© 2026 <a href="https://www.kylescheer.com" target="_blank" class="minimal-link">Kyle Scheer</a></p>
-</footer>
+      </p>
+      <p class="text-xs">
+        © 2026
+        <a
+          href="https://www.kylescheer.com"
+          target="_blank"
+          class="minimal-link"
+          >Kyle Scheer</a
+        >
+      </p>
+    </footer>
 
-<script>
-/* ── DOM refs ─────────────────────────────────────────────────────────────── */
-const logEl           = document.getElementById('log');
-const startBtn        = document.getElementById('startBtn');
-const cancelBtn       = document.getElementById('cancelBtn');
-const progFill        = document.getElementById('progress-fill');
-const progCont        = document.getElementById('progContainer');
-const statsBar        = document.getElementById('statsBar');
-const statTotal       = document.getElementById('statTotal');
-const statSuccess     = document.getElementById('statSuccess');
-const statFailed      = document.getElementById('statFailed');
-const statDupes       = document.getElementById('statDupes');
-const statEta         = document.getElementById('statEta');
-const consoleDot      = document.getElementById('consoleDot');
-const reqContent      = document.getElementById('reqContent');
-const reqArrow        = document.getElementById('reqArrow');
-const videoContent    = document.getElementById('videoContent');
-const videoArrow      = document.getElementById('videoArrow');
-const extGroup        = document.getElementById('extGroup');
-const filterNote      = document.getElementById('filterNote');
-const sliderVal       = document.getElementById('sliderVal');
-const concurrencyHint = document.getElementById('concurrencyHint');
-const folderPathEl    = document.getElementById('folderPath');
-const subfolderLabel  = document.getElementById('subfolderLabel');
-const subfolderCheck  = document.getElementById('subfolderCheck');
-const fsaNotice       = document.getElementById('fsaNotice');
-const themeBtn        = document.getElementById('themeBtn');
-const folderBtn       = document.getElementById('folderBtn');
-const dupDownloadBtn  = document.getElementById('dupDownloadBtn');
-const dupSkipBtn      = document.getElementById('dupSkipBtn');
-const dupHint         = document.getElementById('dupHint');
-const copyLogBtn      = document.getElementById('copyLogBtn');
+    <script>
+      /* ── DOM refs ─────────────────────────────────────────────────────────────── */
+      const logEl = document.getElementById("log");
+      const startBtn = document.getElementById("startBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const progFill = document.getElementById("progress-fill");
+      const progCont = document.getElementById("progContainer");
+      const statsBar = document.getElementById("statsBar");
+      const statTotal = document.getElementById("statTotal");
+      const statSuccess = document.getElementById("statSuccess");
+      const statFailed = document.getElementById("statFailed");
+      const statDupes = document.getElementById("statDupes");
+      const statEta = document.getElementById("statEta");
+      const consoleDot = document.getElementById("consoleDot");
+      const reqContent = document.getElementById("reqContent");
+      const reqArrow = document.getElementById("reqArrow");
+      const videoContent = document.getElementById("videoContent");
+      const videoArrow = document.getElementById("videoArrow");
+      const extGroup = document.getElementById("extGroup");
+      const filterNote = document.getElementById("filterNote");
+      const sliderVal = document.getElementById("sliderVal");
+      const concurrencyHint = document.getElementById("concurrencyHint");
+      const folderPathEl = document.getElementById("folderPath");
+      const subfolderLabel = document.getElementById("subfolderLabel");
+      const subfolderCheck = document.getElementById("subfolderCheck");
+      const fsaNotice = document.getElementById("fsaNotice");
+      const themeBtn = document.getElementById("themeBtn");
+      const folderBtn = document.getElementById("folderBtn");
+      const dupDownloadBtn = document.getElementById("dupDownloadBtn");
+      const dupSkipBtn = document.getElementById("dupSkipBtn");
+      const dupHint = document.getElementById("dupHint");
+      const copyLogBtn = document.getElementById("copyLogBtn");
 
-/* ── State ────────────────────────────────────────────────────────────────── */
-let cancelRequested = false;
-let currentCategory = 'all';
-let directoryHandle = null;
-let concurrency     = 1;
-let dupMode         = 'download'; // 'download' | 'skip'
+      /* ── State ────────────────────────────────────────────────────────────────── */
+      let cancelRequested = false;
+      let currentCategory = "all";
+      let directoryHandle = null;
+      let concurrency = 1;
+      let dupMode = "download"; // 'download' | 'skip'
 
-const IMAGE_EXTS = ['jpg','jpeg','png','webp','gif'];
-const VIDEO_EXTS = ['mp4','mov','webm','avi','mkv','m4v'];
-const MIME_MAP = {
-    'image/jpeg': 'jpg',
-    'image/png': 'png',
-    'image/webp': 'webp',
-    'image/gif': 'gif',
-    'image/svg+xml': 'svg',
-    'image/avif': 'avif',
-    'video/mp4': 'mp4',
-    'video/webm': 'webm',
-    'video/quicktime': 'mov'
-};
-const CONCURRENCY_HINTS = [
-    '',
-    'Sequential — 1 file at a time. Safest for large libraries.',
-    '2 concurrent — mild speed boost with minimal overhead.',
-    '3 concurrent — good balance of speed and stability.',
-    '4 concurrent — fast; 8 GB+ free RAM recommended.',
-    '5 concurrent — maximum speed. Not recommended for 500+ asset libraries.',
-];
+      const IMAGE_EXTS = ["jpg", "jpeg", "png", "webp", "gif"];
+      const VIDEO_EXTS = ["mp4", "mov", "webm", "avi", "mkv", "m4v"];
+      const MIME_MAP = {
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp",
+        "image/gif": "gif",
+        "image/svg+xml": "svg",
+        "image/avif": "avif",
+      };
+      const CONCURRENCY_HINTS = [
+        "",
+        "Sequential — 1 file at a time. Safest for large libraries.",
+        "2 concurrent — mild speed boost with minimal overhead.",
+        "3 concurrent — good balance of speed and stability.",
+        "4 concurrent — fast; 8 GB+ free RAM recommended.",
+        "5 concurrent — maximum speed. Not recommended for 500+ asset libraries.",
+      ];
 
-/* ── localStorage preferences ─────────────────────────────────────────────── */
-function savePrefs() {
-    localStorage.setItem('sq_theme',       document.documentElement.dataset.theme);
-    localStorage.setItem('sq_concurrency', concurrency);
-    localStorage.setItem('sq_category',    currentCategory);
-    localStorage.setItem('sq_subfolder',   subfolderCheck.checked);
-    localStorage.setItem('sq_dupmode',     dupMode);
-}
+      /* ── localStorage preferences ─────────────────────────────────────────────── */
+      function savePrefs() {
+        localStorage.setItem(
+          "sq_theme",
+          document.documentElement.dataset.theme,
+        );
+        localStorage.setItem("sq_concurrency", concurrency);
+        localStorage.setItem("sq_category", currentCategory);
+        localStorage.setItem("sq_subfolder", subfolderCheck.checked);
+        localStorage.setItem("sq_dupmode", dupMode);
+      }
 
-function loadPrefs() {
-    applyTheme(localStorage.getItem('sq_theme') || 'light');
+      function loadPrefs() {
+        applyTheme(localStorage.getItem("sq_theme") || "light");
 
-    const c = parseInt(localStorage.getItem('sq_concurrency') || '1', 10);
-    document.getElementById('concurrencySlider').value = c;
-    updateSlider(c, false);
+        const c = parseInt(localStorage.getItem("sq_concurrency") || "1", 10);
+        document.getElementById("concurrencySlider").value = c;
+        updateSlider(c, false);
 
-    selectCategory(localStorage.getItem('sq_category') || 'all', false);
+        selectCategory(localStorage.getItem("sq_category") || "all", false);
 
-    subfolderCheck.checked = localStorage.getItem('sq_subfolder') === 'true';
+        subfolderCheck.checked =
+          localStorage.getItem("sq_subfolder") === "true";
 
-    setDupMode(localStorage.getItem('sq_dupmode') || 'download', false);
-}
+        setDupMode(localStorage.getItem("sq_dupmode") || "download", false);
+      }
 
-/* ── Theme ────────────────────────────────────────────────────────────────── */
-function applyTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    themeBtn.innerHTML = theme === 'dark'
-        ? '<i class="fas fa-sun"></i> Light mode'
-        : '<i class="fas fa-moon"></i> Dark mode';
-}
+      /* ── Theme ────────────────────────────────────────────────────────────────── */
+      function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        themeBtn.innerHTML =
+          theme === "dark"
+            ? '<i class="fas fa-sun"></i> Light mode'
+            : '<i class="fas fa-moon"></i> Dark mode';
+      }
 
-function toggleTheme() {
-    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    savePrefs();
-}
+      function toggleTheme() {
+        const next =
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(next);
+        savePrefs();
+      }
 
-/* ── Requirements accordion ───────────────────────────────────────────────── */
-function toggleRequirements() {
-    const visible = reqContent.style.display !== 'none';
-    reqContent.style.display = visible ? 'none' : 'block';
-    reqArrow.classList.toggle('arrow-down', visible);
-}
+      /* ── Requirements accordion ───────────────────────────────────────────────── */
+      function toggleRequirements() {
+        const visible = reqContent.style.display !== "none";
+        reqContent.style.display = visible ? "none" : "block";
+        reqArrow.classList.toggle("arrow-down", visible);
+      }
 
-/* ── Video notice accordion ───────────────────────────────────────────────── */
-function toggleVideoNotice() {
-    const visible = videoContent.style.display !== 'none';
-    videoContent.style.display = visible ? 'none' : 'block';
-    videoArrow.classList.toggle('arrow-down', visible);
-}
+      /* ── Video notice accordion ───────────────────────────────────────────────── */
+      function toggleVideoNotice() {
+        const visible = videoContent.style.display !== "none";
+        videoContent.style.display = visible ? "none" : "block";
+        videoArrow.classList.toggle("arrow-down", visible);
+      }
 
-/* ── WebP notice accordion ───────────────────────────────────────────────── */
-function toggleWebPNotice() {
-    const content = document.getElementById('webpContent');
-    const arrow = document.getElementById('webpArrow');
-    const visible = content.style.display !== 'none';
-    
-    content.style.display = visible ? 'none' : 'block';
-    arrow.classList.toggle('arrow-down', visible);
-}
+      /* ── WebP notice accordion ───────────────────────────────────────────────── */
+      function toggleWebPNotice() {
+        const content = document.getElementById("webpContent");
+        const arrow = document.getElementById("webpArrow");
+        const visible = content.style.display !== "none";
 
-/* ── Duplicate filename mode ──────────────────────────────────────────────── */
-function setDupMode(mode, persist = true) {
-    dupMode = mode;
-    dupDownloadBtn.classList.toggle('active', mode === 'download');
-    dupSkipBtn.classList.toggle('active',     mode === 'skip');
-    dupHint.textContent = mode === 'download'
-        ? 'Files with identical names will be renamed (e.g. photo_2.jpg) so nothing is lost.'
-        : 'Files with a name already downloaded this run will be skipped and logged.';
-    if (persist) savePrefs();
-}
+        content.style.display = visible ? "none" : "block";
+        arrow.classList.toggle("arrow-down", visible);
+      }
 
-/* ── Filename collision resolution ────────────────────────────────────────── */
-// Atomically claim a unique filename from the shared seen-names Set.
-// Called synchronously (before any await) so concurrent workers can't race.
-function resolveFilename(name, seenNames) {
-    if (!seenNames.has(name)) {
-        seenNames.add(name);
-        return name;
-    }
-    const dotIdx = name.lastIndexOf('.');
-    const stem   = dotIdx >= 0 ? name.slice(0, dotIdx) : name;
-    const ext    = dotIdx >= 0 ? name.slice(dotIdx)    : '';
-    let counter  = 2;
-    while (true) {
-        const candidate = `${stem}_${counter}${ext}`;
-        if (!seenNames.has(candidate)) {
+      /* ── Duplicate filename mode ──────────────────────────────────────────────── */
+      function setDupMode(mode, persist = true) {
+        dupMode = mode;
+        dupDownloadBtn.classList.toggle("active", mode === "download");
+        dupSkipBtn.classList.toggle("active", mode === "skip");
+        dupHint.textContent =
+          mode === "download"
+            ? "Files with identical names will be renamed (e.g. photo_2.jpg) so nothing is lost."
+            : "Files with a name already downloaded this run will be skipped and logged.";
+        if (persist) savePrefs();
+      }
+
+      /* ── Filename collision resolution ────────────────────────────────────────── */
+      // Atomically claim a unique filename from the shared seen-names Set.
+      // Called synchronously (before any await) so concurrent workers can't race.
+      function resolveFilename(name, seenNames) {
+        if (!seenNames.has(name)) {
+          seenNames.add(name);
+          return name;
+        }
+        const dotIdx = name.lastIndexOf(".");
+        const stem = dotIdx >= 0 ? name.slice(0, dotIdx) : name;
+        const ext = dotIdx >= 0 ? name.slice(dotIdx) : "";
+        let counter = 2;
+        while (true) {
+          const candidate = `${stem}_${counter}${ext}`;
+          if (!seenNames.has(candidate)) {
             seenNames.add(candidate);
             return candidate;
+          }
+          counter++;
         }
-        counter++;
-    }
-}
+      }
 
-/* ── Concurrency slider ───────────────────────────────────────────────────── */
-function updateSlider(val, persist = true) {
-    concurrency = parseInt(val, 10);
-    sliderVal.textContent = concurrency;
-    concurrencyHint.textContent = CONCURRENCY_HINTS[concurrency];
-    if (persist) savePrefs();
-}
+      /* ── Concurrency slider ───────────────────────────────────────────────────── */
+      function updateSlider(val, persist = true) {
+        concurrency = parseInt(val, 10);
+        sliderVal.textContent = concurrency;
+        concurrencyHint.textContent = CONCURRENCY_HINTS[concurrency];
+        if (persist) savePrefs();
+      }
 
-/* ── File System Access API ───────────────────────────────────────────────── */
-const fsaSupported = ('showDirectoryPicker' in window);
+      /* ── File System Access API ───────────────────────────────────────────────── */
+      const fsaSupported = "showDirectoryPicker" in window;
 
-if (!fsaSupported) {
-    fsaNotice.style.display = 'block';
-    folderBtn.disabled = true;
-}
+      if (!fsaSupported) {
+        fsaNotice.style.display = "block";
+        folderBtn.disabled = true;
+      }
 
-async function pickFolder() {
-    if (!fsaSupported) return;
-    try {
-        directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-        folderPathEl.textContent = `📁 ${directoryHandle.name}`;
-        folderPathEl.classList.add('selected');
-        subfolderLabel.classList.remove('disabled');
-        log(`Save folder set: "${directoryHandle.name}"`, 'log-info');
-        savePrefs();
-    } catch (e) {
-        if (e.name !== 'AbortError') log('Folder selection failed.', 'log-warn');
-    }
-}
+      async function pickFolder() {
+        if (!fsaSupported) return;
+        try {
+          directoryHandle = await window.showDirectoryPicker({
+            mode: "readwrite",
+          });
+          folderPathEl.textContent = `📁 ${directoryHandle.name}`;
+          folderPathEl.classList.add("selected");
+          subfolderLabel.classList.remove("disabled");
+          log(`Save folder set: "${directoryHandle.name}"`, "log-info");
+          savePrefs();
+        } catch (e) {
+          if (e.name !== "AbortError")
+            log("Folder selection failed.", "log-warn");
+        }
+      }
 
-/* ── Filter ───────────────────────────────────────────────────────────────── */
-function selectCategory(cat, persist = true) {
-    currentCategory = cat;
-    document.querySelectorAll('.filter-pill').forEach(p =>
-        p.classList.toggle('active', p.dataset.cat === cat)
-    );
-    extGroup.classList.toggle('hidden', cat !== 'custom');
+      /* ── Filter ───────────────────────────────────────────────────────────────── */
+      function selectCategory(cat, persist = true) {
+        currentCategory = cat;
+        document
+          .querySelectorAll(".filter-pill")
+          .forEach((p) => p.classList.toggle("active", p.dataset.cat === cat));
+        extGroup.classList.toggle("hidden", cat !== "custom");
 
-    if (cat === 'all') {
-        filterNote.textContent = 'Downloading all detected asset types.';
-        setAllChips(true);
-    } else if (cat === 'images') {
-        filterNote.textContent = 'Only images will be downloaded (jpg, jpeg, png, webp, gif, svg, avif).';
-        syncChipsByType('image', true); syncChipsByType('video', false); syncChipsByType('other', false);
-    } else if (cat === 'videos') {
-        filterNote.textContent = 'Only videos will be downloaded (mp4, mov, webm, avi).';
-        syncChipsByType('image', false); syncChipsByType('video', true); syncChipsByType('other', false);
-    } else {
-        filterNote.textContent = 'Toggle individual extensions to include or exclude them.';
-    }
-    if (persist) savePrefs();
-}
+        if (cat === "all") {
+          filterNote.textContent = "Downloading all detected asset types.";
+          setAllChips(true);
+        } else if (cat === "images") {
+          filterNote.textContent =
+            "Only images will be downloaded (jpg, jpeg, png, webp, gif, svg, avif).";
+          syncChipsByType("image", true);
+          syncChipsByType("video", false);
+          syncChipsByType("other", false);
+        } else if (cat === "videos") {
+          filterNote.textContent =
+            "Only videos will be downloaded (mp4, mov, webm, avi).";
+          syncChipsByType("image", false);
+          syncChipsByType("video", true);
+          syncChipsByType("other", false);
+        } else {
+          filterNote.textContent =
+            "Toggle individual extensions to include or exclude them.";
+        }
+        if (persist) savePrefs();
+      }
 
-function syncChipsByType(type, enabled) {
-    document.querySelectorAll(`.ext-chip[data-type="${type}"]`).forEach(chip => {
-        chip.querySelector('input').checked = enabled;
-        chip.classList.toggle('active', enabled);
-    });
-}
+      function syncChipsByType(type, enabled) {
+        document
+          .querySelectorAll(`.ext-chip[data-type="${type}"]`)
+          .forEach((chip) => {
+            chip.querySelector("input").checked = enabled;
+            chip.classList.toggle("active", enabled);
+          });
+      }
 
-function setAllChips(enabled) {
-    document.querySelectorAll('.ext-chip').forEach(chip => {
-        chip.querySelector('input').checked = enabled;
-        chip.classList.toggle('active', enabled);
-    });
-}
+      function setAllChips(enabled) {
+        document.querySelectorAll(".ext-chip").forEach((chip) => {
+          chip.querySelector("input").checked = enabled;
+          chip.classList.toggle("active", enabled);
+        });
+      }
 
-document.querySelectorAll('.ext-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-        if (currentCategory !== 'custom') return;
-        const cb = chip.querySelector('input');
-        cb.checked = !cb.checked;
-        chip.classList.toggle('active', cb.checked);
-        const any = [...document.querySelectorAll('.ext-chip input')].some(i => i.checked);
-        filterNote.textContent = any
-            ? 'Downloading only selected extensions.'
-            : '⚠ No extensions selected — nothing will download.';
-    });
-});
+      document.querySelectorAll(".ext-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          if (currentCategory !== "custom") return;
+          const cb = chip.querySelector("input");
+          cb.checked = !cb.checked;
+          chip.classList.toggle("active", cb.checked);
+          const any = [...document.querySelectorAll(".ext-chip input")].some(
+            (i) => i.checked,
+          );
+          filterNote.textContent = any
+            ? "Downloading only selected extensions."
+            : "⚠ No extensions selected — nothing will download.";
+        });
+      });
 
-function getActiveExtensions() {
-    if (currentCategory === 'all')    return null;
-    if (currentCategory === 'images') return IMAGE_EXTS;
-    if (currentCategory === 'videos') return VIDEO_EXTS;
-    return [...document.querySelectorAll('.ext-chip input:checked')].map(i => i.value.toLowerCase());
-}
+      function getActiveExtensions() {
+        if (currentCategory === "all") return null;
+        if (currentCategory === "images") return IMAGE_EXTS;
+        if (currentCategory === "videos") return VIDEO_EXTS;
+        return [...document.querySelectorAll(".ext-chip input:checked")].map(
+          (i) => i.value.toLowerCase(),
+        );
+      }
 
-function urlMatchesFilter(url, exts) {
-    if (!exts) return true;
-    const ext = url.split('?')[0].toLowerCase().split('.').pop();
-    return exts.includes(ext);
-}
+      function urlMatchesFilter(url, exts) {
+        if (!exts) return true;
+        const ext = url.split("?")[0].toLowerCase().split(".").pop();
+        return exts.includes(ext);
+      }
 
-/* ── Deduplication ─────────────────────────────────────────────────────────
+      /* ── Deduplication ─────────────────────────────────────────────────────────
    Squarespace CDN serves the same image at many resolutions via ?format=750w,
    ?format=1500w etc. We group by base URL and keep the highest-res variant.
 ────────────────────────────────────────────────────────────────────────────── */
-function deduplicateUrls(urls) {
-    const groups = new Map();
-    for (const url of urls) {
-        const [base, qs = ''] = url.split('?');
-        const fmt    = new URLSearchParams(qs).get('format') || '';
-        const fmtNum = parseInt(fmt, 10) || 0;
-        if (!groups.has(base) || fmtNum > groups.get(base).fmtNum) {
+      function deduplicateUrls(urls) {
+        const groups = new Map();
+        for (const url of urls) {
+          const [base, qs = ""] = url.split("?");
+          const fmt = new URLSearchParams(qs).get("format") || "";
+          const fmtNum = parseInt(fmt, 10) || 0;
+          if (!groups.has(base) || fmtNum > groups.get(base).fmtNum) {
             groups.set(base, { url, fmtNum });
+          }
         }
-    }
-    return [...groups.values()].map(v => v.url);
-}
+        return [...groups.values()].map((v) => v.url);
+      }
 
-/* ── Logging ──────────────────────────────────────────────────────────────── */
-function clearLog() {
-    logEl.innerHTML = '<div class="log-entry log-dim">Console cleared.</div>';
-}
+      /* ── Logging ──────────────────────────────────────────────────────────────── */
+      function clearLog() {
+        logEl.innerHTML =
+          '<div class="log-entry log-dim">Console cleared.</div>';
+      }
 
-function copyLog() {
-    const logEntries = Array.from(logEl.querySelectorAll('.log-entry')).map(entry => entry.textContent);
-    const logText = logEntries.join('\n');
+      function copyLog() {
+        const logEntries = Array.from(logEl.querySelectorAll(".log-entry")).map(
+          (entry) => entry.textContent,
+        );
+        const logText = logEntries.join("\n");
 
-    if (navigator.clipboard && window.isSecureContext) {
-        // Use modern clipboard API
-        navigator.clipboard.writeText(logText).then(() => {
-            log('Console output copied to clipboard!', 'log-success');
-        }).catch(err => {
-            log('Failed to copy to clipboard: ' + err, 'log-warn');
-        });
-    } else {
-        // Fallback for older browsers or non-HTTPS
-        const textArea = document.createElement('textarea');
-        textArea.value = logText;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-            document.execCommand('copy');
-            log('Console output copied to clipboard!', 'log-success');
-        } catch (err) {
-            log('Failed to copy to clipboard: ' + err, 'log-warn');
-        }
-
-        document.body.removeChild(textArea);
-    }
-}
-
-function log(msg, type = '') {
-    const div = document.createElement('div');
-    div.className = `log-entry ${type}`;
-    div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-    logEl.prepend(div);
-}
-
-/* ── ETA ──────────────────────────────────────────────────────────────────── */
-function formatEta(secs) {
-    if (secs < 60)   return `~${Math.ceil(secs)}s remaining`;
-    if (secs < 3600) return `~${Math.floor(secs/60)}m ${Math.ceil(secs%60)}s remaining`;
-    return `~${Math.floor(secs/3600)}h ${Math.ceil((secs%3600)/60)}m remaining`;
-}
-
-/* ── File save helpers ────────────────────────────────────────────────────── */
-function getFileType(filename) {
-    const ext = filename.split('.').pop().toLowerCase();
-    if (IMAGE_EXTS.includes(ext)) return 'images';
-    if (VIDEO_EXTS.includes(ext)) return 'videos';
-    return 'other';
-}
-
-async function getSubfolderHandle(rootHandle, filename) {
-    if (!subfolderCheck.checked || !rootHandle) return rootHandle;
-    const type = getFileType(filename);
-    if (type === 'other') return rootHandle;
-    try {
-        return await rootHandle.getDirectoryHandle(type, { create: true });
-    } catch { return rootHandle; }
-}
-
-async function saveViaFSA(blob, filename, rootHandle) {
-    const folderHandle = await getSubfolderHandle(rootHandle, filename);
-    const fileHandle   = await folderHandle.getFileHandle(filename, { create: true });
-    const writable     = await fileHandle.createWritable();
-    await writable.write(blob);
-    await writable.close();
-}
-
-function saveViaAnchor(blob, filename) {
-    const url = window.URL.createObjectURL(blob);
-    const a   = Object.assign(document.createElement('a'), { href: url, download: filename });
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.dispatchEvent(new MouseEvent('click', { view: window, bubbles: true, cancelable: true }));
-    document.body.removeChild(a);
-    setTimeout(() => window.URL.revokeObjectURL(url), 30000);
-}
-
-/* ── Single file download ─────────────────────────────────────────────────── */
-// Returns: { saved: filename } on success, { skipped: filename } if dupe-skipped,
-//          or null on fetch/write error.
-async function downloadOne(url, index, seenNames) {
-    try {
-        const cleanUrl = url.replace(/&amp;/g, '&');
-
-        // 1. Initial Fetch
-        const res = await fetch(cleanUrl);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        
-        const blob = await res.blob();
-        const contentType = res.headers.get('Content-Type');
-
-        // 2. Determine the Correct Extension based on MIME type
-        // If the server doesn't provide a type, we fallback to the URL extension
-        let detectedExt = MIME_MAP[contentType] || null;
-
-        // 3. Derive/Fix the filename
-        let rawName = decodeURIComponent(cleanUrl.split('/').pop().split('?')[0]);
-        if (!rawName || !rawName.includes('.')) {
-            rawName = `asset_${index + 1}.${detectedExt || 'jpg'}`;
-        } else if (detectedExt) {
-            // Swap the extension if it doesn't match the actual data
-            const currentExt = rawName.split('.').pop().toLowerCase();
-            if (currentExt !== detectedExt) {
-                const stem = rawName.substring(0, rawName.lastIndexOf('.'));
-                rawName = `${stem}.${detectedExt}`;
-            }
-        }
-
-        // 4. Handle Duplicates/Collisions
-        if (dupMode === 'skip') {
-            if (seenNames.has(rawName)) return { skipped: rawName };
-            seenNames.add(rawName);
-        }
-
-        const filename = dupMode === 'download'
-            ? resolveFilename(rawName, seenNames)
-            : rawName;
-
-        // 5. Save the file
-        if (directoryHandle) {
-            await saveViaFSA(blob, filename, directoryHandle);
+        if (navigator.clipboard && window.isSecureContext) {
+          // Use modern clipboard API
+          navigator.clipboard
+            .writeText(logText)
+            .then(() => {
+              log("Console output copied to clipboard!", "log-success");
+            })
+            .catch((err) => {
+              log("Failed to copy to clipboard: " + err, "log-warn");
+            });
         } else {
-            saveViaAnchor(blob, filename);
+          // Fallback for older browsers or non-HTTPS
+          const textArea = document.createElement("textarea");
+          textArea.value = logText;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          textArea.style.top = "-999999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+
+          try {
+            document.execCommand("copy");
+            log("Console output copied to clipboard!", "log-success");
+          } catch (err) {
+            log("Failed to copy to clipboard: " + err, "log-warn");
+          }
+
+          document.body.removeChild(textArea);
         }
-        return { saved: filename };
-    } catch (e) { 
-        console.error(e);
-        return null; 
-    }
-}
+      }
 
-/* ── Cancel ───────────────────────────────────────────────────────────────── */
-function cancelExtraction() {
-    cancelRequested = true;
-    log('Cancellation requested — draining current batch…', 'log-warn');
-}
+      function log(msg, type = "") {
+        const div = document.createElement("div");
+        div.className = `log-entry ${type}`;
+        div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        logEl.prepend(div);
+      }
 
-/* ── Notifications ────────────────────────────────────────────────────────── */
-function notify(successCount, failCount) {
-    const body = `Done! ${successCount} files saved${failCount > 0 ? `, ${failCount} failed` : ''}.`;
-    if (Notification.permission === 'granted') {
-        new Notification('Squarespace Asset Utility', { body });
-    } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission().then(p => {
-            if (p === 'granted') new Notification('Squarespace Asset Utility', { body });
+      /* ── ETA ──────────────────────────────────────────────────────────────────── */
+      function formatEta(secs) {
+        if (secs < 60) return `~${Math.ceil(secs)}s remaining`;
+        if (secs < 3600)
+          return `~${Math.floor(secs / 60)}m ${Math.ceil(secs % 60)}s remaining`;
+        return `~${Math.floor(secs / 3600)}h ${Math.ceil((secs % 3600) / 60)}m remaining`;
+      }
+
+      /* ── File save helpers ────────────────────────────────────────────────────── */
+      function getFileType(filename) {
+        const ext = filename.split(".").pop().toLowerCase();
+        if (IMAGE_EXTS.includes(ext)) return "images";
+        if (VIDEO_EXTS.includes(ext)) return "videos";
+        return "other";
+      }
+
+      async function getSubfolderHandle(rootHandle, filename) {
+        if (!subfolderCheck.checked || !rootHandle) return rootHandle;
+        const type = getFileType(filename);
+        if (type === "other") return rootHandle;
+        try {
+          return await rootHandle.getDirectoryHandle(type, { create: true });
+        } catch {
+          return rootHandle;
+        }
+      }
+
+      async function saveViaFSA(blob, filename, rootHandle) {
+        const folderHandle = await getSubfolderHandle(rootHandle, filename);
+        const fileHandle = await folderHandle.getFileHandle(filename, {
+          create: true,
         });
-    }
-}
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+      }
 
-/* ── Main extraction — concurrent worker pool ─────────────────────────────── */
-async function startExtraction() {
-    const html      = document.getElementById('htmlInput').value;
-    const pattern   = /https:\/\/[a-z0-9\-\.]+\.squarespace-cdn\.com\/content\/[^\s"'>]+/g;
-    const rawUrls   = [...new Set(html.match(pattern) || [])];
-    const dedupUrls = deduplicateUrls(rawUrls);
-    const exts      = getActiveExtensions();
-    const urls      = dedupUrls.filter(u => urlMatchesFilter(u, exts));
+      function saveViaAnchor(blob, filename) {
+        const url = window.URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement("a"), {
+          href: url,
+          download: filename,
+        });
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.dispatchEvent(
+          new MouseEvent("click", {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+          }),
+        );
+        document.body.removeChild(a);
+        setTimeout(() => window.URL.revokeObjectURL(url), 30000);
+      }
 
-    if (urls.length === 0) {
-        log(rawUrls.length > 0
-            ? '⚠ Assets found but none match the current filter. Try adjusting filters.'
-            : '⚠ No Squarespace CDN URLs found. Make sure you copied the full <body> element.',
-            'log-warn');
-        return;
-    }
+      /* ── Single file download ─────────────────────────────────────────────────── */
+      // Returns: { saved: filename } on success, { skipped: filename } if dupe-skipped,
+      //          or null on fetch/write error.
+      async function downloadOne(url, index, seenNames) {
+        try {
+          const cleanUrl = url.replace(/&amp;/g, "&");
 
-    const cdnDupeCount = rawUrls.length - dedupUrls.length;
+          // Request original formats, but be prepared for the server to ignore us
+          const res = await fetch(cleanUrl, {
+            method: "GET",
+            headers: {
+              Accept: "image/jpeg,image/png,image/gif,image/svg+xml,*/*",
+            },
+          });
 
-    // Reset per-run state
-    cancelRequested = false;
-    let successCount = 0, failCount = 0, skipCount = 0, doneCount = 0;
-    const seenNames = new Set(); // shared across all workers, accessed synchronously
-    const N = urls.length;
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    // UI → running
-    startBtn.disabled       = true;
-    cancelBtn.style.display = 'flex';
-    progCont.style.display  = 'block';
-    statsBar.style.display  = 'flex';
-    consoleDot.classList.add('active');
-    progFill.style.width    = '0%';
+          const blob = await res.blob();
+          const contentType = res.headers.get("Content-Type");
 
-    // Show/hide dupes chip based on mode
-    statDupes.style.display = dupMode === 'skip' ? 'inline-flex' : 'none';
+          // 1. Map the ACTUAL content type to an extension
+          const mimeToExt = {
+            "image/jpeg": "jpg",
+            "image/png": "png",
+            "image/webp": "webp",
+            "image/gif": "gif",
+            "image/svg+xml": "svg",
+          };
 
-    statTotal.innerHTML   = `<i class="fas fa-layer-group"></i> ${N} total`;
-    statSuccess.innerHTML = `<i class="fas fa-circle-check"></i> 0 ok`;
-    statFailed.innerHTML  = `<i class="fas fa-circle-xmark"></i> 0 failed`;
-    statDupes.innerHTML   = `<i class="fas fa-ban"></i> 0 skipped`;
-    statEta.innerHTML     = `<i class="fas fa-clock"></i> Calculating…`;
+          const actualExt = mimeToExt[contentType] || "jpg";
 
-    log(`Queue ready: ${N} asset${N!==1?'s':''} queued${cdnDupeCount>0?`, ${cdnDupeCount} CDN resolution variant${cdnDupeCount>1?'s':''} removed`:''}. Workers: ${concurrency}. Duplicate mode: ${dupMode === 'download' ? 'rename & download all' : 'skip duplicates'}.`, 'log-info');
-    if (directoryHandle) log(`Saving to: "${directoryHandle.name}"${subfolderCheck.checked?' (with subfolders)':''}.`, 'log-info');
+          // 2. Extract the name from the URL
+          let rawName = decodeURIComponent(
+            cleanUrl.split("/").pop().split("?")[0],
+          );
+          if (!rawName || !rawName.includes(".")) {
+            rawName = `asset_${index + 1}.${actualExt}`;
+          } else {
+            // 3. FORCE the extension to match the binary data
+            const nameParts = rawName.split(".");
+            nameParts.pop(); // Remove the "lying" extension
+            rawName = nameParts.join(".") + "." + actualExt;
+          }
 
-    const startTime = Date.now();
-    let cursor = 0;
+          // 4. Resolve filename collisions
+          const filename =
+            dupMode === "download"
+              ? resolveFilename(rawName, seenNames)
+              : rawName;
 
-    async function worker() {
-        while (cursor < N && !cancelRequested) {
-            const i      = cursor++;
-            const url    = urls[i];
+          if (directoryHandle) {
+            await saveViaFSA(blob, filename, directoryHandle);
+          } else {
+            saveViaAnchor(blob, filename);
+          }
+          return { saved: filename };
+        } catch (e) {
+          return null;
+        }
+      }
+
+      /* ── Cancel ───────────────────────────────────────────────────────────────── */
+      function cancelExtraction() {
+        cancelRequested = true;
+        log("Cancellation requested — draining current batch…", "log-warn");
+      }
+
+      /* ── Notifications ────────────────────────────────────────────────────────── */
+      function notify(successCount, failCount) {
+        const body = `Done! ${successCount} files saved${failCount > 0 ? `, ${failCount} failed` : ""}.`;
+        if (Notification.permission === "granted") {
+          new Notification("Squarespace Asset Utility", { body });
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then((p) => {
+            if (p === "granted")
+              new Notification("Squarespace Asset Utility", { body });
+          });
+        }
+      }
+
+      /* ── Main extraction — concurrent worker pool ─────────────────────────────── */
+      async function startExtraction() {
+        const html = document.getElementById("htmlInput").value;
+        const pattern =
+          /https:\/\/[a-z0-9\-\.]+\.squarespace-cdn\.com\/content\/[^\s"'>]+/g;
+        const rawUrls = [...new Set(html.match(pattern) || [])];
+        const dedupUrls = deduplicateUrls(rawUrls);
+        const exts = getActiveExtensions();
+        const urls = dedupUrls.filter((u) => urlMatchesFilter(u, exts));
+
+        if (urls.length === 0) {
+          log(
+            rawUrls.length > 0
+              ? "⚠ Assets found but none match the current filter. Try adjusting filters."
+              : "⚠ No Squarespace CDN URLs found. Make sure you copied the full <body> element.",
+            "log-warn",
+          );
+          return;
+        }
+
+        const cdnDupeCount = rawUrls.length - dedupUrls.length;
+
+        // Reset per-run state
+        cancelRequested = false;
+        let successCount = 0,
+          failCount = 0,
+          skipCount = 0,
+          doneCount = 0;
+        const seenNames = new Set(); // shared across all workers, accessed synchronously
+        const N = urls.length;
+
+        // UI → running
+        startBtn.disabled = true;
+        cancelBtn.style.display = "flex";
+        progCont.style.display = "block";
+        statsBar.style.display = "flex";
+        consoleDot.classList.add("active");
+        progFill.style.width = "0%";
+
+        // Show/hide dupes chip based on mode
+        statDupes.style.display = dupMode === "skip" ? "inline-flex" : "none";
+
+        statTotal.innerHTML = `<i class="fas fa-layer-group"></i> ${N} total`;
+        statSuccess.innerHTML = `<i class="fas fa-circle-check"></i> 0 ok`;
+        statFailed.innerHTML = `<i class="fas fa-circle-xmark"></i> 0 failed`;
+        statDupes.innerHTML = `<i class="fas fa-ban"></i> 0 skipped`;
+        statEta.innerHTML = `<i class="fas fa-clock"></i> Calculating…`;
+
+        log(
+          `Queue ready: ${N} asset${N !== 1 ? "s" : ""} queued${cdnDupeCount > 0 ? `, ${cdnDupeCount} CDN resolution variant${cdnDupeCount > 1 ? "s" : ""} removed` : ""}. Workers: ${concurrency}. Duplicate mode: ${dupMode === "download" ? "rename & download all" : "skip duplicates"}.`,
+          "log-info",
+        );
+        if (directoryHandle)
+          log(
+            `Saving to: "${directoryHandle.name}"${subfolderCheck.checked ? " (with subfolders)" : ""}.`,
+            "log-info",
+          );
+
+        const startTime = Date.now();
+        let cursor = 0;
+
+        async function worker() {
+          while (cursor < N && !cancelRequested) {
+            const i = cursor++;
+            const url = urls[i];
             const result = await downloadOne(url, i, seenNames);
             doneCount++;
 
             if (result === null) {
-                // Fetch/write error
-                const name = decodeURIComponent(url.split('/').pop().split('?')[0]) || `asset_${i+1}`;
-                failCount++;
-                log(`✗ [${doneCount}/${N}] Failed: ${name}`, 'log-warn');
+              // Fetch/write error
+              const name =
+                decodeURIComponent(url.split("/").pop().split("?")[0]) ||
+                `asset_${i + 1}`;
+              failCount++;
+              log(`✗ [${doneCount}/${N}] Failed: ${name}`, "log-warn");
             } else if (result.skipped) {
-                skipCount++;
-                log(`⊘ [${doneCount}/${N}] Skipped duplicate: ${result.skipped}`, 'log-dim');
-                statDupes.innerHTML = `<i class="fas fa-ban"></i> ${skipCount} skipped`;
+              skipCount++;
+              log(
+                `⊘ [${doneCount}/${N}] Skipped duplicate: ${result.skipped}`,
+                "log-dim",
+              );
+              statDupes.innerHTML = `<i class="fas fa-ban"></i> ${skipCount} skipped`;
             } else {
-                const wasRenamed = result.saved !== decodeURIComponent(url.split('/').pop().split('?')[0]);
-                successCount++;
-                log(`✓ [${doneCount}/${N}] ${result.saved}${wasRenamed ? ' (renamed)' : ''}`, 'log-success');
+              const wasRenamed =
+                result.saved !==
+                decodeURIComponent(url.split("/").pop().split("?")[0]);
+              successCount++;
+              log(
+                `✓ [${doneCount}/${N}] ${result.saved}${wasRenamed ? " (renamed)" : ""}`,
+                "log-success",
+              );
             }
 
-            progFill.style.width  = `${(doneCount / N) * 100}%`;
+            progFill.style.width = `${(doneCount / N) * 100}%`;
             statSuccess.innerHTML = `<i class="fas fa-circle-check"></i> ${successCount} ok`;
-            statFailed.innerHTML  = `<i class="fas fa-circle-xmark"></i> ${failCount} failed`;
+            statFailed.innerHTML = `<i class="fas fa-circle-xmark"></i> ${failCount} failed`;
 
-            const elapsed   = (Date.now() - startTime) / 1000;
+            const elapsed = (Date.now() - startTime) / 1000;
             const remaining = (elapsed / doneCount) * (N - doneCount);
-            statEta.innerHTML = doneCount < N
+            statEta.innerHTML =
+              doneCount < N
                 ? `<i class="fas fa-clock"></i> ${formatEta(remaining)}`
                 : `<i class="fas fa-clock"></i> Done`;
+          }
         }
-    }
 
-    await Promise.all(Array.from({ length: concurrency }, worker));
+        await Promise.all(Array.from({ length: concurrency }, worker));
 
-    // UI → done
-    startBtn.disabled       = false;
-    cancelBtn.style.display = 'none';
-    consoleDot.classList.remove('active');
+        // UI → done
+        startBtn.disabled = false;
+        cancelBtn.style.display = "none";
+        consoleDot.classList.remove("active");
 
-    if (cancelRequested) {
-        log(`Cancelled. Saved: ${successCount}, Failed: ${failCount}${skipCount>0?`, Skipped: ${skipCount}`:''}, Remaining: ${N - doneCount}.`, 'log-warn');
-    } else {
-        const allOk = failCount === 0;
-        const skipSummary = skipCount > 0 ? `, ${skipCount} duplicate${skipCount>1?'s':''} skipped` : '';
-        log(`Complete — ${successCount} saved, ${failCount} failed${skipSummary}.`, allOk ? 'log-success' : 'log-warn');
-        startBtn.innerHTML = allOk
+        if (cancelRequested) {
+          log(
+            `Cancelled. Saved: ${successCount}, Failed: ${failCount}${skipCount > 0 ? `, Skipped: ${skipCount}` : ""}, Remaining: ${N - doneCount}.`,
+            "log-warn",
+          );
+        } else {
+          const allOk = failCount === 0;
+          const skipSummary =
+            skipCount > 0
+              ? `, ${skipCount} duplicate${skipCount > 1 ? "s" : ""} skipped`
+              : "";
+          log(
+            `Complete — ${successCount} saved, ${failCount} failed${skipSummary}.`,
+            allOk ? "log-success" : "log-warn",
+          );
+          startBtn.innerHTML = allOk
             ? '<i class="fas fa-circle-check"></i> Complete'
             : '<i class="fas fa-triangle-exclamation"></i> Finished with errors';
-        notify(successCount, failCount);
-        setTimeout(() => { startBtn.innerHTML = '<i class="fas fa-bolt"></i> Extract & Download Assets'; }, 4000);
-    }
-}
+          notify(successCount, failCount);
+          setTimeout(() => {
+            startBtn.innerHTML =
+              '<i class="fas fa-bolt"></i> Extract & Download Assets';
+          }, 4000);
+        }
+      }
 
-/* ── Init ─────────────────────────────────────────────────────────────────── */
-loadPrefs();
-</script>
+      /* ── Init ─────────────────────────────────────────────────────────────────── */
+      loadPrefs();
+    </script>
 
-<!-- Lightbox Modal -->
-<div id="lightbox" class="lightbox">
-    <div class="lightbox-content">
-        <img id="lightbox-img" src="" alt="">
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="" />
         <button id="lightbox-close" class="lightbox-close">&times;</button>
+      </div>
     </div>
-</div>
 
-<script>
-/* ── Lightbox functionality ───────────────────────────────────────────────── */
-function initLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.getElementById('lightbox-close');
+    <script>
+      /* ── Lightbox functionality ───────────────────────────────────────────────── */
+      function initLightbox() {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxClose = document.getElementById("lightbox-close");
 
-    // Add click event to all step-card images
-    document.querySelectorAll('.step-card img').forEach(img => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', function() {
+        // Add click event to all step-card images
+        document.querySelectorAll(".step-card img").forEach((img) => {
+          img.style.cursor = "pointer";
+          img.addEventListener("click", function () {
             lightboxImg.src = this.src;
             lightboxImg.alt = this.alt;
-            lightbox.style.display = 'flex';
-            lightbox.style.alignItems = 'center';
-            lightbox.style.justifyContent = 'center';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            lightbox.style.display = "flex";
+            lightbox.style.alignItems = "center";
+            lightbox.style.justifyContent = "center";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+          });
         });
-    });
 
-    // Close lightbox when clicking the close button
-    lightboxClose.addEventListener('click', closeLightbox);
+        // Close lightbox when clicking the close button
+        lightboxClose.addEventListener("click", closeLightbox);
 
-    // Close lightbox when clicking outside the image
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox) {
             closeLightbox();
-        }
-    });
+          }
+        });
 
-    // Close lightbox on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        // Close lightbox on Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && lightbox.style.display === "flex") {
             closeLightbox();
+          }
+        });
+
+        function closeLightbox() {
+          lightbox.style.display = "none";
+          document.body.style.overflow = ""; // Restore scrolling
         }
-    });
+      }
 
-    function closeLightbox() {
-        lightbox.style.display = 'none';
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-}
+      /* ── Mobile device detection ───────────────────────────────────────────────── */
+      function detectMobileDevice() {
+        const mobileWarning = document.getElementById("mobileWarning");
 
-/* ── Mobile device detection ───────────────────────────────────────────────── */
-function detectMobileDevice() {
-    const mobileWarning = document.getElementById('mobileWarning');
+        // Check if device is likely a mobile device
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent,
+          ) ||
+          (window.innerWidth <= 768 &&
+            window.innerHeight <= 1024 &&
+            "ontouchstart" in window);
 
-    // Check if device is likely a mobile device
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-                    (window.innerWidth <= 768 && window.innerHeight <= 1024 && 'ontouchstart' in window);
+        // Additional check: if screen is very small and has touch capability
+        const hasTouch =
+          "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        const smallScreen = window.innerWidth <= 768;
 
-    // Additional check: if screen is very small and has touch capability
-    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const smallScreen = window.innerWidth <= 768;
+        if (isMobile || (hasTouch && smallScreen)) {
+          mobileWarning.style.display = "block";
+        }
+      }
 
-    if (isMobile || (hasTouch && smallScreen)) {
-        mobileWarning.style.display = 'block';
-    }
-}
-
-// Initialize lightbox and check for mobile devices after DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initLightbox();
-    detectMobileDevice();
-});
-</script>
-
-</body>
+      // Initialize lightbox and check for mobile devices after DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        initLightbox();
+        detectMobileDevice();
+      });
+    </script>
+  </body>
 </html>
